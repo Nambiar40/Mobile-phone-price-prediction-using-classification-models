@@ -17,12 +17,31 @@ from bs4 import BeautifulSoup
 from apscheduler.schedulers.background import BackgroundScheduler
 import datetime
 import threading
+from db_utils import (
+    add_tracked_item as db_add_tracked_item, get_tracked_items as db_get_tracked_items,
+    delete_tracked_item as db_delete_tracked_item, get_unread_notifications as db_get_unread_notifications,
+    mark_notifications_read as db_mark_notifications_read, update_tracked_price, insert_notification
+)
 
 # --- Database Initialization ---
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DB_PATH = os.path.join(BASE_DIR, 'history.db')
 
+SUPABASE_URL = os.environ.get("SUPABASE_URL")
+SUPABASE_KEY = os.environ.get("SUPABASE_KEY")
+supabase_client = None
+
+if SUPABASE_URL and SUPABASE_KEY:
+    try:
+        from supabase import create_client
+        supabase_client = create_client(SUPABASE_URL, SUPABASE_KEY)
+        print("Connected to Supabase")
+    except Exception as e:
+        print(f"Error connecting to Supabase: {e}")
+
 def init_db():
+    if supabase_client:
+        return
     with sqlite3.connect(DB_PATH) as conn:
         c = conn.cursor()
         c.execute('''
@@ -430,13 +449,21 @@ def predict_resale():
 
         # Save to History DB
         try:
-            with sqlite3.connect(DB_PATH) as conn:
-                c = conn.cursor()
-                c.execute('''
-                    INSERT INTO search_history (prediction_type, brand, model_name, predicted_price)
-                    VALUES (?, ?, ?, ?)
-                ''', ('Resale Price', brand or 'Unknown', model_name or 'Unknown', display_range))
-                conn.commit()
+            if supabase_client:
+                supabase_client.table('search_history').insert({
+                    "prediction_type": 'Resale Price',
+                    "brand": brand or 'Unknown',
+                    "model_name": model_name or 'Unknown',
+                    "predicted_price": display_range
+                }).execute()
+            else:
+                with sqlite3.connect(DB_PATH) as conn:
+                    c = conn.cursor()
+                    c.execute('''
+                        INSERT INTO search_history (prediction_type, brand, model_name, predicted_price)
+                        VALUES (?, ?, ?, ?)
+                    ''', ('Resale Price', brand or 'Unknown', model_name or 'Unknown', display_range))
+                    conn.commit()
         except Exception as db_e:
             db_error_msg = f"DB Error (Resale): {str(db_e)}"
             print(db_error_msg)
@@ -532,13 +559,21 @@ def predict_current_price():
         # Save to History DB
         db_warning = None
         try:
-            with sqlite3.connect(DB_PATH) as conn:
-                c = conn.cursor()
-                c.execute('''
-                    INSERT INTO search_history (prediction_type, brand, model_name, predicted_price)
-                    VALUES (?, ?, ?, ?)
-                ''', ('Current Price', brand or 'Unknown', model_name or 'Unknown', price_range))
-                conn.commit()
+            if supabase_client:
+                supabase_client.table('search_history').insert({
+                    "prediction_type": 'Current Price',
+                    "brand": brand or 'Unknown',
+                    "model_name": model_name or 'Unknown',
+                    "predicted_price": price_range
+                }).execute()
+            else:
+                with sqlite3.connect(DB_PATH) as conn:
+                    c = conn.cursor()
+                    c.execute('''
+                        INSERT INTO search_history (prediction_type, brand, model_name, predicted_price)
+                        VALUES (?, ?, ?, ?)
+                    ''', ('Current Price', brand or 'Unknown', model_name or 'Unknown', price_range))
+                    conn.commit()
         except Exception as db_e:
             db_warning = f"DB Error (Current Price): {str(db_e)}"
             print(db_warning)
@@ -575,15 +610,23 @@ def register():
         
     try:
         hashed_password = generate_password_hash(password)
-        with sqlite3.connect(DB_PATH) as conn:
-            c = conn.cursor()
-            c.execute('INSERT INTO users (fullname, email, password) VALUES (?, ?, ?)', 
-                     (fullname, email, hashed_password))
-            conn.commit()
-        return jsonify({'success': True, 'message': 'Registration successful'})
+        if supabase_client:
+            supabase_client.table('users').insert({
+                'fullname': fullname, 'email': email, 'password': hashed_password
+            }).execute()
+            return jsonify({'success': True, 'message': 'Registration successful'})
+        else:
+            with sqlite3.connect(DB_PATH) as conn:
+                c = conn.cursor()
+                c.execute('INSERT INTO users (fullname, email, password) VALUES (?, ?, ?)', 
+                         (fullname, email, hashed_password))
+                conn.commit()
+            return jsonify({'success': True, 'message': 'Registration successful'})
     except sqlite3.IntegrityError:
         return jsonify({'success': False, 'error': 'Email already registered'}), 400
     except Exception as e:
+        if 'duplicate key' in str(e).lower() or 'already registered' in str(e).lower() or '23505' in str(e):
+            return jsonify({'success': False, 'error': 'Email already registered'}), 400
         return jsonify({'success': False, 'error': str(e)}), 500
 
 @app.route('/api/login', methods=['POST'])
@@ -596,10 +639,17 @@ def login():
         return jsonify({'success': False, 'error': 'Email and password are required'}), 400
         
     try:
-        with sqlite3.connect(DB_PATH) as conn:
-            c = conn.cursor()
-            c.execute('SELECT * FROM users WHERE email = ?', (email,))
-            user = c.fetchone()
+        user = None
+        if supabase_client:
+            res = supabase_client.table('users').select('*').eq('email', email).execute()
+            if res.data:
+                user_data = res.data[0]
+                user = (user_data['id'], user_data['fullname'], user_data['email'], user_data['password'])
+        else:
+            with sqlite3.connect(DB_PATH) as conn:
+                c = conn.cursor()
+                c.execute('SELECT * FROM users WHERE email = ?', (email,))
+                user = c.fetchone()
             
         if user and check_password_hash(user[3], password):
             return jsonify({'success': True, 'message': 'Login successful', 'fullname': user[1]})
@@ -617,21 +667,23 @@ def health():
 @app.route('/api/history', methods=['GET'])
 def get_history():
     try:
-        with sqlite3.connect(DB_PATH) as conn:
-            c = conn.cursor()
-            c.execute('SELECT id, prediction_type, brand, model_name, predicted_price, timestamp FROM search_history ORDER BY timestamp DESC LIMIT 50')
-            rows = c.fetchall()
-        
         history = []
-        for r in rows:
-            history.append({
-                'id': r[0],
-                'type': r[1],
-                'brand': r[2],
-                'model_name': r[3],
-                'price': r[4],
-                'date': r[5]
-            })
+        if supabase_client:
+            res = supabase_client.table('search_history').select('*').order('timestamp', desc=True).limit(50).execute()
+            for r in res.data:
+                history.append({
+                    'id': r['id'], 'type': r['prediction_type'], 'brand': r['brand'], 
+                    'model_name': r['model_name'], 'price': r['predicted_price'], 'date': r['timestamp']
+                })
+        else:
+            with sqlite3.connect(DB_PATH) as conn:
+                c = conn.cursor()
+                c.execute('SELECT id, prediction_type, brand, model_name, predicted_price, timestamp FROM search_history ORDER BY timestamp DESC LIMIT 50')
+                rows = c.fetchall()
+            for r in rows:
+                history.append({
+                    'id': r[0], 'type': r[1], 'brand': r[2], 'model_name': r[3], 'price': r[4], 'date': r[5]
+                })
         return jsonify({'success': True, 'history': history})
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)}), 500
@@ -739,13 +791,21 @@ def ocr_extract():
         try:
             price_val = extracted_data.get('original_price', '')
             price_display = f"Rs.{price_val}" if price_val else "N/A"
-            with sqlite3.connect(DB_PATH) as conn:
-                c = conn.cursor()
-                c.execute('''
-                    INSERT INTO search_history (prediction_type, brand, model_name, predicted_price)
-                    VALUES (?, ?, ?, ?)
-                ''', ('OCR Scan', extracted_data.get('brand') or 'Unknown', extracted_data.get('model') or 'Unknown', price_display))
-                conn.commit()
+            if supabase_client:
+                supabase_client.table('search_history').insert({
+                    "prediction_type": 'OCR Scan',
+                    "brand": extracted_data.get('brand') or 'Unknown',
+                    "model_name": extracted_data.get('model') or 'Unknown',
+                    "predicted_price": price_display
+                }).execute()
+            else:
+                with sqlite3.connect(DB_PATH) as conn:
+                    c = conn.cursor()
+                    c.execute('''
+                        INSERT INTO search_history (prediction_type, brand, model_name, predicted_price)
+                        VALUES (?, ?, ?, ?)
+                    ''', ('OCR Scan', extracted_data.get('brand') or 'Unknown', extracted_data.get('model') or 'Unknown', price_display))
+                    conn.commit()
         except Exception as db_e:
             print(f"DB Error (OCR Scan): {str(db_e)}")
             
@@ -808,30 +868,23 @@ def background_price_check():
     """Function to run periodically to check tracked prices."""
     print(f"[{datetime.datetime.now()}] Running background price check...")
     try:
-        with sqlite3.connect(DB_PATH) as conn:
-            c = conn.cursor()
-            c.execute('SELECT id, url, product_name, target_price, current_price FROM price_tracker WHERE is_active = 1')
-            items = c.fetchall()
+        items = db_get_tracked_items()
+        for item in items:
+            item_id = item['id']
+            url = item['url']
+            name = item['name']
+            target_price = item.get('target_price')
+            old_price = item.get('current_price')
             
-            for item in items:
-                item_id, url, name, target_price, old_price = item
-                
-                title, new_price, _ = scrape_amazon_price(url)
-                
-                if new_price is not None:
-                    # Update DB
-                    c.execute('UPDATE price_tracker SET current_price = ?, last_checked = CURRENT_TIMESTAMP WHERE id = ?', (new_price, item_id))
-                    
-                    # Check for price drop
-                    if old_price is None or new_price < old_price:
-                        if target_price and new_price <= target_price:
-                            msg = f"TARGET REACHED: {name} dropped to ₹{new_price} (Target: ₹{target_price})"
-                            c.execute('INSERT INTO notifications (message, type) VALUES (?, ?)', (msg, 'success'))
-                        else:
-                            msg = f"PRICE DROP: {name} is now ₹{new_price} (was ₹{old_price})"
-                            c.execute('INSERT INTO notifications (message, type) VALUES (?, ?)', (msg, 'info'))
+            title, new_price, _ = scrape_amazon_price(url)
             
-            conn.commit()
+            if new_price is not None:
+                update_tracked_price(item_id, new_price)
+                if old_price is None or new_price < old_price:
+                    if target_price and new_price <= target_price:
+                        insert_notification(f"TARGET REACHED: {name} dropped to ₹{new_price} (Target: ₹{target_price})", 'success')
+                    else:
+                        insert_notification(f"PRICE DROP: {name} is now ₹{new_price} (was ₹{old_price})", 'info')
     except Exception as e:
         print(f"Background check error: {str(e)}")
 
@@ -863,52 +916,18 @@ def add_tracked_item():
         return jsonify({'success': False, 'error': 'Failed to fetch product details from Amazon. The URL might be invalid or Amazon blocked the request.'}), 400
         
     try:
-        with sqlite3.connect(DB_PATH) as conn:
-            c = conn.cursor()
-            c.execute('''
-                INSERT INTO price_tracker (url, platform, product_name, target_price, current_price, image_url, last_checked)
-                VALUES (?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
-            ''', (url, 'Amazon', title, target_price, price, img_url))
-            conn.commit()
-            
-            # Create a success notification
-            c.execute('INSERT INTO notifications (message, type) VALUES (?, ?)', (f"Started tracking {title[:30]}... at ₹{price}", 'info'))
-            
-            # Also log to search history
-            price_display = f"Rs.{price}" if price else "N/A"
-            c.execute('''
-                INSERT INTO search_history (prediction_type, brand, model_name, predicted_price)
-                VALUES (?, ?, ?, ?)
-            ''', ('Price Tracker', 'Amazon', title[:50] + ('...' if len(title) > 50 else ''), price_display))
-            
-            conn.commit()
-            
-        return jsonify({'success': True, 'message': 'Product added to tracker!', 'product': {'name': title, 'price': price}})
-    except sqlite3.IntegrityError:
-        return jsonify({'success': False, 'error': 'This URL is already being tracked.'}), 400
+        success, msg = db_add_tracked_item(url, title, target_price, price, img_url)
+        if success:
+            return jsonify({'success': True, 'message': msg, 'product': {'name': title, 'price': price}})
+        else:
+            return jsonify({'success': False, 'error': msg}), 400
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)}), 500
 
 @app.route('/api/tracked-prices', methods=['GET'])
 def get_tracked_items():
     try:
-        with sqlite3.connect(DB_PATH) as conn:
-            c = conn.cursor()
-            c.execute('SELECT id, url, platform, product_name, target_price, current_price, image_url, last_checked FROM price_tracker WHERE is_active = 1 ORDER BY created_at DESC')
-            rows = c.fetchall()
-            
-        items = []
-        for r in rows:
-            items.append({
-                'id': r[0],
-                'url': r[1],
-                'platform': r[2],
-                'name': r[3],
-                'target_price': r[4],
-                'current_price': r[5],
-                'image_url': r[6],
-                'last_checked': r[7]
-            })
+        items = db_get_tracked_items()
         return jsonify({'success': True, 'items': items})
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)}), 500
@@ -916,10 +935,7 @@ def get_tracked_items():
 @app.route('/api/delete-tracked-price/<int:item_id>', methods=['DELETE'])
 def delete_tracked_item(item_id):
     try:
-        with sqlite3.connect(DB_PATH) as conn:
-            c = conn.cursor()
-            c.execute('DELETE FROM price_tracker WHERE id = ?', (item_id,))
-            conn.commit()
+        db_delete_tracked_item(item_id)
         return jsonify({'success': True, 'message': 'Item removed from tracker.'})
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)}), 500
@@ -927,19 +943,8 @@ def delete_tracked_item(item_id):
 @app.route('/api/notifications', methods=['GET'])
 def get_notifications():
     try:
-        with sqlite3.connect(DB_PATH) as conn:
-            c = conn.cursor()
-            c.execute('SELECT id, message, type, created_at FROM notifications WHERE read_status = 0 ORDER BY created_at DESC LIMIT 20')
-            rows = c.fetchall()
-            
-        notifications = []
-        for r in rows:
-            notifications.append({
-                'id': r[0],
-                'message': r[1],
-                'type': r[2],
-                'created_at': r[3]
-            })
+        notifications = db_get_unread_notifications()
+        # Convert dictionary formats slightly if needed, db_utils returns a list of dicts directly
         return jsonify({'success': True, 'notifications': notifications})
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)}), 500
@@ -949,16 +954,8 @@ def mark_notifications_read():
     try:
         data = request.get_json()
         ids = data.get('ids', [])
-        
-        if not ids:
-            return jsonify({'success': True})
-            
-        with sqlite3.connect(DB_PATH) as conn:
-            c = conn.cursor()
-            placeholders = ','.join('?' * len(ids))
-            c.execute(f'UPDATE notifications SET read_status = 1 WHERE id IN ({placeholders})', ids)
-            conn.commit()
-            
+        if ids:
+            db_mark_notifications_read(ids)
         return jsonify({'success': True})
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)}), 500

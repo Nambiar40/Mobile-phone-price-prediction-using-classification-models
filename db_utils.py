@@ -1,12 +1,11 @@
-import streamlit as st
 from supabase import create_client, Client
 import sqlite3
 import os
 import datetime
 
 # Try to use Supabase, fallback to SQLite if not configured
-SUPABASE_URL = st.secrets.get("SUPABASE_URL") if hasattr(st, "secrets") else None
-SUPABASE_KEY = st.secrets.get("SUPABASE_KEY") if hasattr(st, "secrets") else None
+SUPABASE_URL = os.environ.get("SUPABASE_URL")
+SUPABASE_KEY = os.environ.get("SUPABASE_KEY")
 
 USE_SUPABASE = bool(SUPABASE_URL and SUPABASE_KEY)
 

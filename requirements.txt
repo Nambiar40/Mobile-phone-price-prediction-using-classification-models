@@ -6,7 +6,7 @@ joblib
 requests
 beautifulsoup4
 apscheduler
-streamlit
+gunicorn
 supabase
 pytesseract
 opencv-python-headless
