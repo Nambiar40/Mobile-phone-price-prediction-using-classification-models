@@ -1,0 +1,804 @@
+PERFORMANCE MANAGEMENT SYSTEM
+A Project Report Submitted by
+YASH DUDHAREJIYA – 92100104076
+in partial fulfillment for the award of the degree of
+Bachelor of Technology 
+in 
+Information Technology
+Faculty of Engineering And Technology
+Marwadi University, Rajkot
+2024-25
+Faculty of Engineering And Technology
+Marwadi University
+Department of Information Technology
+2024-25
+CERTIFICATE
+This is to certify that the project entitled Project Performance Management System has been carried out by Yash Dudharejiya – 92100104076 under my guidance in partial fulfillment of the degree of Bachelor of Technology in Information Technology of Marwadi University, Rajkot during the academic year 2024-25.
+Date: 26 – 04 – 2025
+Internal Guide Head of the Department
+Prof. Komala Gondi               Dr. Damodharan P.
+TO WHOMSOEVER IT MAY CONCERN
+This is to certify that Yash Dudharejiya of Faculty of Technology,  Marwadi University has worked on a project at Azilen Technologies Pvt. Ltd.. The work embodied in this project entitled, “Performance Management System” has been carried out in fulfillment of the degree of Bachelor of Technology. He has undergone the project for the required period. During this period we found him sincere, honest, and diligent. We wish all success in his/her future endeavors.
+Prof. Komala Gondi
+Date: 26 – 04 – 2025
+ 
+Acknowledgments
+I would like to express my sincere gratitude to all those who helped and supported me throughout the course of this project.
+I extend my heartfelt thanks to Azilen Technologies Pvt. Ltd. for giving me the opportunity to work on a real-time industry project titled “Performance Management System.” The guidance and support provided by the team at Azilen played a crucial role in shaping my learning and development. I am especially thankful to my industry mentor Vishal Gosai for their valuable insights, encouragement, and constructive feedback during the entire duration of the project.
+I am also deeply grateful to Prof. Komala Gondi, my internal project guide at Marwadi University, for his continuous support, motivation, and valuable suggestions that guided me throughout this journey.
+A special mention to my faculty members, friends, and peers who provided constant encouragement and moral support.
+This project has been a great learning experience and a significant step in my professional journey. 
+Index 
+Institute’s Vision and Mission                                                                                          ii
+Department’s Vision and Mission                                                                                  iii
+PEO, POs and PSOs                                                                                                         iv
+Abstract                                                                                                                              v
+1Introduction                                                                                                               1
+1.1About The Company                                                                                           1
+1.2Introduction of the Company                                                                              1
+1.3Resources                                                                                                            1
+1.4Fix Resources                                                                                                      2
+1.5Human Resources                                                                                               2
+1.6The System                                                                                                          2
+1.7Definition of the System                                                                                     2
+1.8Purpose and Objectives                                                                                       2
+1.9Scoped of the Project                                                                                          2
+1.10Proposed System                                                                                                 3
+2SYSTEM ANALYSIS                                                                                               4
+2.1Feasibility Study                                                                                                 4
+2.2Operational Feasibility                                                                                       4
+2.3Technical Feasibility                                                                                          4
+2.4Requirement Engineering                                                                                   4
+2.5Fact-Finding Techniques                                                                                    5
+3SYSTEM Requirement Study                                                                                 6
+3.1Functional and non-functional requirements                                                     6
+3.2User Characteristics                                                                                           6
+3.3Need of self-evaluation                                                                                      6
+3.4Technology and user in project                                                                          7
+3.5Hardware and Software Requirement of projects                                              7
+4About Current  System                                                                                           9 
+4.1Study of self evaluation                                                                                     9
+4.2About Key Result Area(KRA)                                                                          9
+4.3Rating Matrix                                                                                                    10
+4.4Algorithm for Calculating overall Rating                                                         10
+5UML DIAGRAMS                                                                                                  11
+5.1Use-Case diagram                                                                                             11
+5.2Activity diagram                                                                                               12
+5.3Sequence diagram                                                                                             13
+5.4Class diagram                                                                                                    14
+5.5CONTEXT DIAGRAM                                                                                    15
+5.6DATA FLOW DIAGRAM                                                                               15
+6SYSTEM DESIGN                                                                                                  16
+6.1System flow                                                                                                      16
+6.2About Key Result Area(KRA)                                                                          16
+6.3System flow of Project Manager                                                                       17
+6.4System flow of Employee                                                                               17
+6.5Data dictionary                                                                                                 18
+7USER MANUAL                                                                                                   19
+7.1Login                                                                                                                19
+7.2Home Screen of HR                                                                                         19
+7.3Create Cycle                                                                                                     20
+7.4Edit Cycle                                                                                                       20
+7.5Create Iteration                                                                                               21
+7.6Edit Iteration                                                                                                   21
+7.7ADD KRAs                                                                                                    22
+7.8Delete KRA                                                                                                    22
+7.9Rating Matrix                                                                                                 23
+7.10Give Comments and Ratings                                                                          23
+7.11Self-evaluation                                                                                               24
+7.12Create Profile                                                                                                 25 
+8TESTING                                                                                                             26
+8.1Testing Phase                                                                                                26
+8.2Testing Types                                                                                               28
+8.3Test Cases                                                                                                     29
+9 FUTURE ENHANCEMENT                                                                             36
+10 CONCLUSION                                                                                                   37
+11      APPENDIX                                                                                                         38
+12 BIBLIOGRAPHY                                                                                               39
+Institute’s Vision and Mission
+Institute’s Vision
+To foster an environment that empowers people, organisations and societies through education, ideas, research and training.
+Institute’s Mission
+To provide quality education and thereby bring social transformation.‎ ‎‎‎
+‎ To create leaders through innovation and entrepreneurship.‎ ‎‎‎
+‎ To cultivate the culture of research advancements.‎ ‎‎‎
+‎ To imbibe universal consciousness.‎ ‎‎
+‎ To stimulate growth through industrial and international partnerships.‎ 
+Department’s Vision and Mission
+Department’s Vision
+To be recognized as a team delivering educational excellence that advances teaching, learning, and research, in alignment with Marwadi Education Foundation's mission and goals.
+Department’s Mission
+To impart knowledge and skills related to the undergraduate program offered by the department.
+To impart technical and professional skills to make graduates competitive and capable.
+To constantly encourage and motivate graduates for innovation, entrepreneurship & industry readiness.
+To inspire graduates for higher education and research and to place graduates in leading industries and companies.
+PEO, PO, and PSO
+Program Educational Objectives (PEO):
+Our graduated students are expected to fulfill the following Program Educational Objectives (PEOs):
+Core Competency: Successfully apply fundamental mathematical, scientific, and engineering principles in formulating and solving engineering and real life problems for betterment of society.
+Breadth: Will apply current industry accepted practices, new and emerging technologies to analyse, design, implement and maintain state of art solutions.
+Professionalism: Work effectively and ethically in ever changing global professional environment and multi-disciplinary environment.
+Learning Environment: Demonstrate excellent communication and soft skills to fulfil their commitment towards social responsibilities and foster life-long learning.
+Preparation: Promote research and patenting to enhance technical and entrepreneurship skills within them.
+Program Outcomes (POs) 
+Engineering Graduates will be able to: 
+PO1:Engineering knowledge: Apply the knowledge of mathematics, science, engineering fundamentals, and an engineering specialization to the solution of complex engineering problems. 
+PO2:Problem analysis: Identify, formulate, review research literature, and analyze complex engineering problems reaching substantiated conclusions using first principles of mathematics, natural sciences, and engineering sciences. 
+PO3:Design/development of solutions: Design solutions for complex engineering problems and design system components or processes that meet the specified needs with appropriate consideration for the public health and safety, and the cultural, societal, and environmental considerations. 
+PO4:Conduct investigations of complex problems: Use research-based knowledge and research methods including design of experiments, analysis and interpretation of data, and synthesis of the information to provide valid conclusions. 
+PO5:Modern tool usage: Create, select, and apply appropriate techniques, resources, and modern engineering and IT tools including prediction and modeling to complex engineering activities with an understanding of the limitations. 
+PO6:The engineer and society: Apply reasoning informed by the contextual knowledge to assess societal, health, safety, legal and cultural issues and the consequent responsibilities relevant to the professional engineering practice. 
+PO7:Environment and sustainability: Understand the impact of the professional engineering solutions in societal and environmental contexts, and demonstrate the knowledge of, and need for sustainable development. 
+PO8:Ethics: Apply ethical principles and commit to professional ethics and responsibilities and norms of the engineering practice. 
+PO9:Individual and team work: Function effectively as an individual, and as a member or leader in diverse teams, and in multidisciplinary settings. 
+PO10:Communication: Communicate effectively on complex engineering activities with the engineering community and with society at large, such as, being able to comprehend and write effective reports and design documentation, make effective presentations, and give and receive clear instructions. 
+PO11:Project management and finance: Demonstrate knowledge and understanding of the engineering and management principles and apply these to one’s own work, as a member and leader in a team, to manage projects and in multidisciplinary environments.  
+PO12:Life-long learning: Recognize the need for, and have the preparation and ability to engage in independent and life-long learning in the broadest context of technological change.
+Program Specific Outcomes (PSOs)
+PSO1. Graduates will be able to identify, analyze and solve the real time problems of the industries in the area of software development, embedded system, VLSI design, IoT and communication technologies.
+PSO2.Graduates will be able to contribute as an analyst and developer in the areas related to cloud computing, DevOps, security, machine learning, artificial intelligence and big data.
+Abstract
+In past the performance of the employees was done by writing reports and submitting it to HR for each employee, which was a very tedious process. Every manager will have to follow the same process and it would waste their time as they cannot focus on more important work. HR will also face many difficulties as he will have to keep track of all the reports for each employee.
+To solve all these issues PMS (Performance Management System) was developed. Every employee including managers will be a part of it and all of their performance will be tracked during each iteration. Using some predefined methods and set of algorithms the employee will be evaluated. 
+ 
+We have implemented microservice architecture here, the PMS is divided into small individual services. Each and every service can work on its own and is not dependent on any other service. So even if one of the services is down it won’t affect the whole system. And the services could be updated without any shutdown of the system. 
+ 
+So, this solves most of the issues that were there as managers will just have to comment and give some ratings against the work done by the employee and HR can get any information by some clicks only. The top level can easily measure the performance by simply looking at the ratings of the employee.
+List of Tables [Sample]
+Table No.
+Table Description
+Page No
+Table 5.1
+Integration Testing Test Cases
+72
+Table 5.2
+Login Test Cases
+72
+Table 5.3
+Create Profile Test Cases
+82
+Table 5.4
+Create Cycle Test Cases
+86
+Table 5.5
+Create Iteration Test Cases
+87
+Table 5.6
+Add KRAs Test Cases
+88
+Table 5.7
+Add Comments Test Cases
+89
+Table 5.8
+Add Ratings Test Cases
+90
+List of Figures 
+Figure No.
+Figure Description
+Page No
+Fig. 4.1
+Login Page
+51
+Fig. 4.2
+Home Screen of HR
+51
+Fig. 4.3(a)
+Create Cycle - Initial View
+52
+Fig. 4.3(b)
+Create Cycle - After Adding Details
+52
+Fig. 4.4
+Edit Cycle
+53
+Fig. 4.5(a)
+Delete Cycle - Confirmation
+54
+Fig. 4.5(b)
+Delete Cycle - After Deletion
+54
+Fig. 4.6
+Create Iteration
+55
+Fig. 4.7(a)
+Edit Iteration - Before Editing
+55
+Fig. 4.7(b)
+Edit Iteration - After Editing
+55
+Fig. 4.8(a)
+Delete Iteration - Confirmation
+56
+Fig. 4.8(b)
+Delete Iteration - After Deletion
+56
+Fig. 4.9(a)
+Add Employees and Assign Project Manager
+57
+Fig. 4.9(b)
+Employee Added - View 1
+58
+Fig. 4.9(c)
+Employee Added - View 2
+58
+Fig. 4.9(d)
+Edit Project Manager of Employee
+59
+Fig. 4.9(e)
+Delete Employee from Iteration
+59
+Fig. 4.10
+Project Manager Dashboard
+60
+Fig. 4.11
+Add KRAs Screen
+60
+Fig. 4.12(a)
+Delete KRA - Before Deletion
+61
+Fig. 4.12(b)
+Delete KRA - After Deletion
+61
+Fig. 4.13(a)
+Give Comments and Ratings
+62
+Fig. 4.13(b)
+HR Comments View
+62
+Fig. 4.13(c)
+Employee Evaluation List
+63
+Fig. 4.13(d)
+Detailed Evaluation View
+63
+Fig. 4.14(a)
+Allow Self Evaluation - Iteration Setup
+64
+Fig. 4.14(b)
+Employee Added to Iteration
+64
+List of Symbols, Abbreviations and Nomenclature
+Symbol
+Abbreviation
+PMS
+Performance Management System
+KRA
+Key Result Area
+HR
+Human Resources
+UI
+User Interface
+UX
+User Experience
+API
+Application Programming Interface
+DB
+Database
+LDAP
+Lightweight Directory Access Protocol
+REST
+Representational State Transfer
+ELK
+Elasticsearch, Logstash, Kibana (Logging Stack)
+1. Introduction
+1.1 ABOUT THE COMPANY
+Test Established in 2009, Azilen Technologies started with its own product in the field of Hospitality at global level. After gaining a lot of success and gaining complete product development experience, in 2011 Azilen started a separate division with a passion for consulting Start-ups, SMBs and Enterprise to  build, support and transform a global product offering best consumer“experience”.At Azilen we believe in philosophy of “Adding Value” to our People’s Growth, Customer’s Growth and Growth in Adopting New Technology & Innovation which enable us to create and sustain world class experience and driving industries like never before. 
+At Azilen we provide solutions in different kinds of Industries, Services and Business types. Its main aim is to provide a solution with Innovation, Best of Strategy and Adding Value to the product.And we provide solutions in Product Engineering, Digital Enterprise, Artificial Intelligence, Internet of Things, Big Data Analytics and HR-Tech.
+1.2 Introduction to the Company
+At Azilen we provide solutions in different kinds of Industries, Services and Business types. Its main aim is to provide a solution with Innovation, Best of Strategy and Adding Value to the product.And we provide solutions in Product Engineering, Digital Enterprise, Artificial Intelligence, Internet of Things, Big Data Analytics and HR-Tech.
+1.3 Resources
+The Head office is at Ahmedabad and other office is in Mumbai. 
+Our other branches are also there in different countries like USA, Switzerland and Belgium.  
+More than 200 Computers with high configuration.
+1.4 Fix Resources
+More than 200 Computers with high configuration. 
+Database Servers having very high storage capacity.
+Data warehouse Server.
+1.5 Human Resources
+More than 200 employees.
+1.6 The System
+Performance Management System (PMS) is a web-based application which will be used by the organizations to evaluate their employee’s performance from the work they have done in their respective projects.
+1.7 Definition of the System
+Generally, in every organization, there exists a procedure to measure the performance of each employee based on a certain predefined set of parameters. 
+This tool will help the organization to automate this evaluation process with ease.
+1.8 Purpose and Objectives
+Evaluate Performance: Main objective of this system is to evaluate performance of employees and to get proper and unbiased feedback of employees. 
+Ease of work: It saves time and effort of the HR and Managers as most of the work will be done by using clicks only
+Automated Work: This system helps in automate the process of evaluation of employees.
+1.8 Scoped of the Project
+Performance Management System (PMS) is a web-based application which will be used by the organizations to evaluate their employee’s performance from the work they have done in their respective projects.
+The system should be able to set various parameters and corresponding ratings against which employees can be evaluated. 
+The employees should be evaluated and rated against these responsibilities by different level of users based on their efforts and contribution for their respective projects. 
+ 
+Finally, the system should be able to generate and calculate overall rating based on these parameters.
+1.10 Proposed Profile
+In PMS we have implemented Microservice architecture, here the system is divided into small individual services. 
+Each service can work on its own and is not dependent on any other service. So, if even if one of the services is down it won’t affect the whole system. 
+And the services could be updated without any shutdown of the system. 
+We have followed Domain Driven Design (DDD); the richness is in the way we approached the requirement understanding and solutioning. 
+In DDD there is a fixed set of parameters or steps to understand a domain. 
+We have followed those steps before and throughout during the design process.
+2. System Analysis
+2.1 Feasibility Study
+A feasibility study is performed by a company when they want to know whether the proposed framework is possible or not.
+2.2 Operational feasibility
+This system brings better achievement for the operations by providing unbiased and accurate evaluation. 
+The system will help ease the work of the HR and Manager. The problem of keeping record will also be sorted as all the old evaluations will be there. 
+Creating and retrieving output is much easier. 
+Issue of security won’t be there as only HR and the Project Manager will know what evaluation is given to the employee. 
+2.3 Proposed Profile
+In PMS we have implemented Microservice architecture, here the system is divided into small individual services. 
+Each service can work on its own and is not dependent on any other service. So, if even if one of the services is down it won’t affect the whole system. 
+And the services could be updated without any shutdown of the system. 
+We have followed Domain Driven Design (DDD); the richness is in the way we approached the requirement understanding and solutioning. 
+In DDD there is a fixed set of parameters or steps to understand a domain. 
+We have followed those steps before and throughout during the design process.
+2.4 Requirement Engineering 
+There will be some initial cost but later we can sell it in the market also and generate revenue also. 
+And the benefits from this system will surely outweigh the cost that is to be put in creating this system. 
+The overall costs will mostly revolve around the buying of the services required for the system that’s it.
+2.5 Fact-Finding Techniques
+Most of the communication is done through face to face. 
+Here we used to collect information from the Project lead and the CTO. The communication used to be very clear and accurate as no interruptions were caused. 
+At that time only we would ask out the questions for the next sprint and discuss all the feasibility aspects.
+There were documents which were shared by the project lead for our reference to the project. 
+Also, the exchange of mails was done for guidance and problem solving.
+We learned a lot by observing our senior’s work. We used     to observe them so that we can improve our working style.
+3. SYSTEM Requirement Study
+3.1 Functional and non-functional requirements
+Functional requirements: 
+Login:  
+Description: This functionality provides users having different roles to login to the system. Depending on their role, they are redirected to appropriate pages.  
+HR Login
+Precondition: User needs to be on the Login page.
+Input: User will enter valid username and password which should belong to HR. 
+Output: User is redirected to HR Homepage. 
+Processing: Username and password will be verified and should match to those in database. 
+Employee Login: 
+Precondition: User needs to be on the Login page. 
+Input: User will enter valid username and password which should belong to a student.  
+Output: User is redirected to employee homepage. 
+Processing: User username and password will be verified and should match those in database. 
+Add KRA: 
+Description: This functionality allows the Project Manager to add KRAs for all employees. 
+Precondition: Project Manager should be on the manage cycle page. 
+Input:ProjectManager will add KRAs like communication skills, domain knowledge, etc. 
+Output: Add the KRAs in employee profile. 
+Non-functional requirements:
+Reliability:
+A System shall be reliable i.e. in the case of server crashes a backup server will be there to work which will be maintained continuously.
+Availability:  
+This system is web based and it is inhouse production of an organization so it will always available of an organization through an internal link and only organization’s members can access it. 
+Performance:  This system is faster so users doesn’t have to wait for loading it.
+Security: 
+The system will be made secure by assigning all users with separate login ids and password i.e. every user will be responsible for their assigned credentials. Also, All the employee evaluation related data is encrypted
+3.2 User Characteristics
+The project Performance Management System has a total of four users in it:  
+HR 
+Project Manager  
+Employee 
+Reporting Manager 
+The HR will add all employees into the system including Project Manager and Reporting Manager. This panel will have all the controls except giving weightage, comments and rating. 
+Secondly, there is user who is Project Manager who will evaluate employees which are allocated to him/her. Evaluation includes adding various types of KRAs along with its weightage and will add ratings afterwards. If, the evaluation is going to be done by Project Manager then Project Manager will add comments too. 
+Third, there is a user who is an employee. Employees can see to whom they are allocated to, in which cycle they are allocated and in which iteration they are allocated. Also, employees can self- evaluate themselves if HR has given such permission (control) to them. In such case, employees must add only comments against the KRAs.
+3.3 Need of self-evaluation
+Self-evaluation of employees is very important for the organization, as self-evaluation is the self-realization about the performance for their employee. 
+It helps employees in setting up new goals for their carrier and for themselves.
+This self-evaluation also helps Project Manager or Reporting manger or the other employer to analyze and understand each employee and their mindset. 
+By self-evaluation process employees can know or can explore their own talent and also allows employee to grow their talents in front of management. 
+We have followed those steps before and throughout during the design process.
+3.4 Technology and user in project 
+Eureka service discovery 
+The main use of using service discovery is that it helps in locating the services. 
+We have used Eureka service discovery as our project is based on microservices and their REST is used and Eureka supports REST. 
+In this, every microservices when started will come and register themselves by stating their Ip address and port number, so when a client requests for access using API at that time API will come to service discovery to get the IP address and port number of the service
+Zuul API gateway and CORS 
+Zuul works like an API gateway, it redirects the requests that come from UI to the appropriate microservices. So basically, the client can contact to Zuul only and then Zuul will fulfil the request by transferring the API to its microservice. 
+The main advantage we get is that we will fulfil some important aspects such as CORS, authentication and
+ORS is Cross Origin Resource Sharing. It is an internet protocol which lets us share/transfer data or resources which are restricted from one domain to another. We need this as Angular is in different domain and spring is in different domain, so to let them share resources we use this.
+Keycloak 
+We used keycloak to fulfil multiple functionalities that is to successfully implement the LDAP (Lightweight Directory Access Protocol) login, which is a protocol for global login. In simple words it means we can use a same set of credentials for logging into multiple applications.
+ELK stash 
+It has been used for storing the logs in a central space following the concept of centralized logging. It helps in finding the errors and issues when multiple servers are connected at a same time as all the logs will be at one place. In future we can use this for analytical processes also.
+3.5 Hardware and Software Requirement of projects
+Hardware Requirement: 
+ Processor : Intel Core i5 3rd Gen 
+ RAM : 8 GB 
+ Harddisk : 500 GB 
+ Software Requirement: 
+ Database: MongoDB 
+ Front end: Angular 7, DevExtreme 
+4. About Current System 
+4.1 Study of self-evaluation 
+Project Manager and Reporting Manager can use this system for managing KRAs given by Project Manager for evaluation. 
+Also, the employees can view their profile where all the details like in which cycle, iteration and under whom they are allocated is shown along with evaluation details if done in past. 
+Also, if HR has given permission of Self-evaluation, then employees can self-evaluate by adding comments to the respective KRAs and can submit it. 
+After the submission of comments by employees, Project Manager can give ratings to their respective comments.
+Output: User is redirected to employee homepage. 
+Processing: User username and password will be verified and should match those in database. 
+4.2 About Key Result Area (KRA)
+Key Result Area i.e. KRA defines the roles of employees based on their designation through which they will be evaluated. 
+It defines the role/s of employee/s based on their designation through which they will be evaluated. 
+Example: If a Project Manager wants to add KRAs for a Designer whose skill set is UI/UX, the Project Manager can set UI/UX specific KRAs for the concerned employee such as: Innovative thinking, Product designs, Technical Skills & Domain Knowledge. 
+Now the concerned Designer will be evaluated against these parameters for the concerned project for this evaluation cycle.
+Here each skill set will have some percent of weightage and the total of all KRAs should be 100%. 
+KRAs can be assigned in two ways i.e. 
+One of the ways is to import it from the designation-based profile generated in Profiling Module. 
+The other way is in which the KRAs are defined by Project Manager and can be customised as per the project requirements.
+4.3 Rating Matrix
+The following image shows the rating matrix using which the employees are evaluated
+4.4 Algorithm for calculating overall Rating
+At the time of overall rating the system has an algorithm using which the employee will be rated against. 
+Algorithm:
+Explanation: During every iteration the employee will get ratings out of 10 for each KRAs, and each KRAs will be assigned weightage out of 100%.
+Now rating of an individual KRA will be divided by 10. The answer you get will be multiplied with the weightage of that KRA.
+And answer of all these individual KRAs will be added and that would be the Total Score of that employee.
+5. UML DIAGRAMS
+5.1 Use-Case diagram
+5.2 Activity diagram
+5.3 Sequence diagram
+5.4 Class diagram
+5.5 CONTEXT DIAGRAM
+5.6 DATA FLOW DIAGRAM
+6. SYSTEM DESIGN
+6.1 System flow 
+6.2 About Key Result Area(KRA)
+6.3 System flow of Project Manager 
+6.4 System flow of Employee 
+6.5 Data dictionary 
+7. USER MANUAL
+7.1 Login 
+7.2 Home Screen of HR
+7.3 Create Cycle  
+.
+7.4 Edit Cycle
+7.5 Create Iteration 
+7.6 Edit Iteration 
+7.7 ADD KRAs 
+7.8 Delete KRA 
+7.9 Rating Matrix 
+7.10 Give Comments and Ratings 
+7.11 Self-evaluation
+7.12 Create Profile
+8. TESTING
+8.1 Testing Phase 
+User should be able to log into the system by providing his/her username 
+If user is HR then HR should be able to see dashboard where there are components: Manage Profile, Manage Cycle and Manage KRA. Also, HR should be able to the list of employees who are which HR has added them for evaluation.
+HR should be able to create cycle, iteration and add assign the employees to the Project Manager successfully. 
+If the user is employee then should be able to see their pervious evaluations and if Self-evaluation is enabled then employee should also be self-evaluating themselves successfully. 
+If user is Project Manager then he/she should be able to see the employees which are assign to them. 
+Also, Project manager should be able to add KRAs, weightage, comments and ratings to the employees successfully. 
+If the user is Reporting Manager, then he/she should be able to view given comments and ratings of the employees.
+Features to be tested: 
+Login 
+Create Profile 
+Create Cycle  
+Create Iteration 
+Add KRAs 
+Add comments 
+Add ratings
+Test Environment Setup:
+What are the browsers for this web- based system to work on?
+Browsers such as Internet Explorer,
+Google Chrome and Mozilla Firefox.
+Hardware
+What all the hardware equipment needed?
+Equipment such as Desktop or Laptop in which this system is going to be
+tested.
+Test Closure:
+Tests
+Test Result
+Login
+Pass
+Create Profile
+Pass
+Create Cycle
+Pass
+Create iteration
+Pass
+Add KRAs
+Pass
+Add Comments
+Pass
+Add Ratings
+Pass
+8.2 Testing Types 
+The following types of testing are for this project:  
+Unit Testing: 
+In this testing following are the few tested things which were tested:  
+Testing if user can login successfully. 
+Checked if HR can see the dashboard having Manage Profile, Manage Cycle, Manage KRA. 
+Checked if cycle and iteration pages are giving correct output when HR creates cycle/s or iteration/s. 
+Checked if HR can search and employees and add those employees to the that iterations and assign Project Mangers.
+Checked if employees can see their profiles. 
+Integration Testing: 
+ In this system following are the few tested things which were tested: 
+Checked if user is able to navigate to their respective home screens successfully. 
+Checked if HR is able to navigate to Manage Cycle screen by clicking on it from dashboard. 
+Checked if HR is able to see the list of employees which are to be evaluated and which were added in iteration. 
+Checked if HR is able to create iteration/s in the cycle/s and those functionalities working correct after that. 
+Checked if employees are able to view their evaluation done by Project Manager
+Checked if Project Manager is able to navigate to employee profile by clicking on it to add KRAs.
+System Testing: 
+Following are the few tested things which were tested: 
+Checked if the HR is able to create cycle and iteration with adding employees and assigning those employees Project Manager. 
+Checked if those employees are displayed on the dashboard of HR for evaluation.
+Checked if Project Managers is able to see the employees which are allocated to them.
+Checked if Project Managers are able to add KRAs to that employee and also evaluate them. 
+Checked if employees are able to view their evaluation which done by Project Managers.
+8.3 Test Cases
+TC Id
+Test Title
+Test Data
+Expected Result
+Actual Result
+Pass/Fail
+LTC1
+Check username filed with valid credentials
+Username:
+mintHrManagae r
+User should be successfully logged in
+User is able to successfully logged in
+Pass
+LTC2
+Check behavior by keeping username filed empty.
+passowrd: test
+User should show an error saying “username is required.”
+When user keeps username field empty then it is showing the error.
+Pass
+LTC3
+Check behavior by keeping password field empty
+Username:
+mintHrManagae r
+User should show an error saying “password is required”.
+When user keeps username field empty then it is showing the error.
+Pass
+Create Profile
+TC Id
+Test Title
+Test Data
+Expected Result
+Actual Result
+Pass/Fail
+PTC1
+Check if profile name is not allowing any numbers or special characters.
+12Java@
+When entered this data user should not be allowed to enter such data.
+User is not allowed to enter such data.
+Pass
+PTC2
+Check if description box is allowed to enter multiple data.
+When user tries to enter multiline data then system should allow to do so.
+System is allowing to enter multiline data.
+Pass
+PTC3
+Check if capabilities field is allowing any invalid data.
+01Java
+When user tries to enter this type of data then user is not allowed to enter such data
+System is not allowing to enter invalid data.
+Pass
+PTC4
+Check if designation field is allowing any invalid data.
+Tech Lead
+When user tries to enter this type of data then user is not allowed to enter such data
+System is not allowing to enter invalid data.
+Pass
+TC Id
+Test Title
+Test Data
+Expected Result
+Actual Result
+Pass/Fail
+CTC1
+Check if user is able to add cycle details by clicking on ‘+’ sign
+When user clicks n ‘+’ sign then user should be able to add cycle details.
+User is able to add cycle details by clicking on ‘+’ sign.
+Pass
+CTC2
+Check behavior of the system by keeping cycle name empty.
+When user keeps cycle name empty then error should be shown.
+Error is shown when cycle name is kept empty.
+Pass
+CTC3
+Check behavior of the system by keeping year field empty.
+When user keeps year field empty then error should be shown.
+Error is shown when year filed is kept empty
+Pass
+Create Iteration
+TC Id
+Test Title
+Test Data
+Expected Result
+Actual Result
+Pass/Fail
+ITC1
+Check if user is able to add iteration details by clicking on ‘+’ sign
+When user clicks n ‘+’ sign then
+user should be able to add iteration details.
+User is able to add iteration details by clicking on ‘+’ sign.
+Pass
+ITC2
+Check behavior of the system by keeping iteration name empty.
+Month: 2
+Start Date: 4/1/2020
+End Date: 4/1/2020
+When user keeps iteration name empty then error should be shown.
+Error is shown when iteration name is kept empty.
+Pass
+ITC3
+Check behavior of the system by keeping month field empty.
+Iteration Name: Q1
+Start Date: 4/1/2020
+End Date: 4/1/2020
+When user keeps month field empty then error should be shown.
+Error is shown when month filed is kept empty.
+Pass
+ITC4
+Check behavior of the system by keeping start date and end date empty.
+Iteration Name: Q1
+Month: 2
+When user keeps start date and end date empty then error should be shown.
+Error is shown when start date and end date is kept empty.
+Pass
+Add KRAs
+TC Id
+Test Title
+Test Data
+Expected Result
+Actual Result
+Pass/Fail
+KTC1
+Check if Project Manager is able to add KRA or not.
+Innovative thing Clean Coding
+Project manager should be able to add KRA successfully.
+Project manager is able to add KRA
+successfully.
+Pass
+KTC2
+Check if employee can see those KRAs
+Innovative thing
+Domain Knowledge
+Employees should be able to see the KRAs added.
+Employees are able to see them.
+Pass
+Add Comments
+TC Id
+Test Title
+Test Data
+Expected Result
+Actual Result
+Pass/Fail
+CMTC 1
+Check if project managers are able to add comments
+When project managers try to add comments then should be do that successfully
+Project Managers are able to add comments successfully
+Pass
+CMTC 2
+Check if the comments are viewed to the employees
+Comments given by project manager should be viewed to employees successfully
+Employees can view the comments.
+Pass
+CMTC 3
+Check if employees are able to add comments in the
+When there is self- evaluation, employees should
+Employees are able to add comments successfully.
+Pass
+  Add Ratings
+TC Id
+Test Title
+Test Data
+Expected Result
+Actual Result
+Pass/Fail
+RTC1
+Check if project managers can give ratings
+When project managers try to give ratings then should be do that successfully
+Project Managers are able to give ratings successfully
+Pass
+RTC2
+Check if the ratings are viewed to the employees
+Ratings given by project manager should be viewed to employees successfully
+Employees can view the ratings.
+Pass
+   Integration Testing
+TC Id
+Test Title
+Test Data
+Expected Result
+Actual Result
+Pass/Fail
+GTC1
+Check if user is
+E K
+User should be able
+User is able to
+Pass
+able to add
+Shreekanth
+to add employee/s in
+add employee/s in
+employees in
+Varma
+the cycle and
+cycle and
+the cycle and
+iteration.
+iteration.
+iteration.
+GTC2
+Check if Project Manager is to see the employee/s
+list allocated
+Project Manager should be able to see to the list of
+employee/s allocated
+to them.
+Project Manager is able to see to the list of employee/s allocated to them.
+Pass
+to them.
+GTC3
+Check if HR is
+When Project
+HR is able to see
+Pass
+able to see the
+Manager does
+the evaluation
+evaluation done
+evaluation, the HR
+done by Project
+by Project
+should be able to see
+Manager.
+manager.
+that.
+GTC4
+Check if Employee is
+able to see the
+When Project Manager does
+evaluation, the
+Employee is able to see the
+evaluation done
+Pass
+9. FUTURE ENHANCEMENT
+ 
+In future we are planning to implement a “Cost functioning’” module, which will help the organization in many ways as it would ease a lot of processes done by Sales Team and Top-level management. 
+The Cost functioning module is divided into two parts, one part is where it will help the Top-level management in deciding the appraisals for all the employees as per their performance. There will be different algorithms set using which this would be done. It will take time in implementing as it has many security issues as well as it is much complex considering the diversified departments in the organization. 
+Another part is where the Sales team and Accounting team will be benefitted. 
+Here all the income and expense related detailing work will be done. All the accounting of money will be done through this module. 
+After the successful implementation of PMS, we will monitor it for six months and observe for any defects or enhancements requirements and if needed will do the same.
+10. CONCLUSION
+PMS Performance Management System is a system through which employees could be easily evaluated based on their performance. It is quite easy to use and understand the system flow.
+Through this we can reduce the work of HR and managers both. Even the problem of storing data is not there as the ratings and evaluations are automatically getting stored in the system.
+The main aim was to give a better environment to the organization where the people can work more effectively and efficiently.
+11. APPENDIX
+Tools used:
+Eclipse
+Eclipse is an integrated development environment used in computer programming. It includes a base workspace and an extensible plug-in system to optimize the environment
+Mongo db.
+MongoDB is a cross-platformdocument-orienteddatabaseprogram.
+MongoDB is developed by MongoDB Inc. and licensed under the Server- Side Public. Classified as a NoSQL database program, MongoDB uses JSON-like documents with schema.
+Visual studio code
+Visual Studio Code is a sourcecode editor developed by Microsoft, Windows, Linux, and macOS.
+This includes support for embedded Git and debugging, syntax highlighting, intelligent code completion, snippets and code refactoring.
+draw.io, Visual Studio Paradigm, SmartDraw
+Above tools were used to draw the diagrams.
+12. BIBLIOGRAPHY
+Following are the sites that are used in Project Development:
+https://www.pluralsight.com/
+https://www.javatpoint.com/spring-boot-tutorial
+https://www.baeldung.com/spring-boot
+https://angular.io/
+https://angular.io/tutorial/toh-pt6
+https://js.devexpress.com/
+https://stackoverflow.com/
+https://www.freelancinggig.com/blog/2018/11/02/what-is-the-difference- between-api-and-rest-api/
+https://dzone.com/articles/microservices-communication-zuul-api-gateway-1
+https://app.pluralsight.com/library/courses/springmvc-intro/table-of-contents
+https://www.tutorialspoint.com/spring/index.htm
+https://www.n-ix.com/microservices-vs-monolith-which-architecture-best- choice-your-business/
+https://insights.daffodilsw.com/blog/monolithic-vs-microservices-which-is- the-better-architecture-for-ecommerce-app-development
+https://www.petrikainulainen.net/programming/spring-framework/spring-data- jpa-tutorial-part-nine-conclusions/
+https://www.javacodemonk.com/spring-cloud-and-its-advantages-3ac60b2c
+https://www.youtube.com/watch?v=P1mlC8Ar0_k
+https://www.baeldung.com/spring-boot-keycloak
+https://www.keycloak.org/docs/latest/securing_apps/
+https://medium.com/@techgeek628/easily-secure-your-spring-boot- applications-with-keycloak-41e09acc88fd

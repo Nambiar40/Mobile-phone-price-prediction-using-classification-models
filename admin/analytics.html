@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Analytics - Price Predict AI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="../src/style.css" />
+    <link rel="stylesheet" href="admin.css" />
+  </head>
+  <body class="admin-layout">
+    <div class="bg-glow-1"></div>
+    <div class="bg-glow-2"></div>
+    
+    <div id="admin-app">
+      <div class="page-header">
+        <div class="page-title">
+          <h1>Analytics</h1>
+          <p>Deep dive into prediction trends, user behavior, and system usage.</p>
+        </div>
+        <div class="header-actions">
+          <input type="date" class="form-control" style="width: auto; padding: 0.5rem;" />
+        </div>
+      </div>
+
+      <!-- Large Trend Chart -->
+      <div class="glass-card chart-card" style="margin-bottom: 2rem;">
+        <div class="chart-header">
+          <div class="chart-title">Yearly Platform Growth</div>
+        </div>
+        <div class="chart-container large">
+          <canvas id="analyticsTrendChart"></canvas>
+        </div>
+      </div>
+
+      <div class="charts-grid">
+        <!-- Specs Chart -->
+        <div class="glass-card chart-card">
+          <div class="chart-header">
+            <div class="chart-title">Top Predicted RAM Sizes</div>
+          </div>
+          <div class="chart-container small">
+            <canvas id="ramChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Price Range Stats -->
+        <div class="glass-card stat-card flex-col justify-center">
+          <div class="chart-header">
+            <div class="chart-title">Price Statistics</div>
+          </div>
+          <div class="flex-col gap-4">
+            <div class="flex justify-between items-center pb-2" style="border-bottom: 1px solid var(--border-color);">
+              <span class="text-secondary">Average Price</span>
+              <span class="text-main font-bold" style="font-size: 1.25rem;">$645.50</span>
+            </div>
+            <div class="flex justify-between items-center pb-2" style="border-bottom: 1px solid var(--border-color);">
+              <span class="text-secondary">Highest Price</span>
+              <span class="text-main font-bold" style="font-size: 1.25rem; color: var(--primary-color);">$2,199.00</span>
+            </div>
+            <div class="flex justify-between items-center pb-2" style="border-bottom: 1px solid var(--border-color);">
+              <span class="text-secondary">Lowest Price</span>
+              <span class="text-main font-bold" style="font-size: 1.25rem; color: var(--secondary-color);">$85.00</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-secondary">Avg Confidence</span>
+              <span class="text-main font-bold" style="font-size: 1.25rem; color: var(--success-color);">94.8%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <script src="charts.js"></script>
+    <script src="admin.js"></script>
+    <script src="layout.js"></script>
+    <script>
+      document.addEventListener('layoutReady', () => {
+        if(window.renderAnalyticsCharts) {
+          window.renderAnalyticsCharts();
+        }
+      });
+    </script>
+  </body>
+</html>

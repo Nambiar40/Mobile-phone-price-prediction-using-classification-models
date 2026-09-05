@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <title>Current Price Prediction - Phone Price Prediction</title>
+      <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <div class="dashboard-layout">
+      <!-- LEFT SIDEBAR -->
+      <aside class="sidebar">
+        <div class="sidebar-brand">
+          <div class="sidebar-logo">
+            <i class="fa-solid fa-robot"></i>
+          </div>
+          <div class="sidebar-title">Price Predict AI</div>
+        </div>
+
+        <ul class="sidebar-menu">
+          <li class="menu-item"><a href="/dashboard.html" class="menu-link"><i class="fa-solid fa-house"></i> Dashboard</a></li>
+          <li class="menu-item"><a href="/ocr-scanner.html" class="menu-link"><i class="fa-solid fa-camera"></i> OCR Prediction</a></li>
+          <li class="menu-item"><a href="/current-price.html" class="menu-link active"><i class="fa-solid fa-chart-simple"></i> Current Price</a></li>
+          <li class="menu-item"><a href="/price-tracker.html" class="menu-link"><i class="fa-solid fa-arrow-trend-up"></i> Price Tracker</a></li>
+          <li class="menu-item"><a href="/resale-price.html" class="menu-link"><i class="fa-solid fa-sack-dollar"></i> Resale Price</a></li>
+          <li class="menu-item"><a href="/history.html" class="menu-link"><i class="fa-solid fa-folder-open"></i> History</a></li>
+        </ul>
+
+        <div class="sidebar-footer">
+          <ul class="sidebar-menu">
+
+            <li class="menu-item"><a href="/index.html" class="menu-link"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a></li>
+          </ul>
+        </div>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <div class="main-content">
+        <!-- TOP NAVBAR -->
+        <header class="top-navbar">
+          <div class="search-bar">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" placeholder="Search predictions..." />
+          </div>
+
+          <div class="nav-actions">
+            <i class="fa-solid fa-moon nav-icon" id="themeToggle" title="Toggle Theme"></i>
+            <i class="fa-solid fa-bell nav-icon" title="Notifications"></i>
+            
+            <div class="user-profile">
+              <div class="user-avatar">AD</div>
+              <div class="user-info">
+                <span class="user-name">Admin User</span>
+                <span class="user-role">Premium Plan</span>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- DASHBOARD BODY -->
+        <div class="dashboard-body">
+          <div class="dashboard-header">
+            <h1>Current Market Price Prediction</h1>
+            <p>Enter the mobile phone details below to get an estimated market price.</p>
+          </div>
+
+          <div class="dashboard-bottom">
+            <div class="glass-card">
+              <h2 style="margin-bottom: 1.5rem; font-size: 1.25rem;">Phone Specifications</h2>
+              <form class="feature-form" id="currentPriceForm">
+                
+                <h3 style="font-size: 1rem; margin-top: 0.5rem; margin-bottom: 0.5rem; color: var(--primary-color);">Basic Information</h3>
+                <div class="grid-2">
+                  <div class="form-group">
+                    <label for="brand">Brand</label>
+                    <select id="brand" class="form-control" required>
+                      <option value="Apple">Apple</option>
+                      <option value="Samsung">Samsung</option>
+                      <option value="Google">Google</option>
+                      <option value="OnePlus">OnePlus</option>
+                      <option value="Xiaomi">Xiaomi</option>
+                      <option value="Vivo">Vivo</option>
+                      <option value="Oppo">Oppo</option>
+                      <option value="Realme">Realme</option>
+                      <option value="Motorola">Motorola</option>
+                      <option value="Nothing">Nothing</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="model_name">Model Name</label>
+                    <input type="text" id="model_name" class="form-control" placeholder="e.g. iPhone 13" required />
+                  </div>
+                </div>
+                <div class="grid-2">
+                  <div class="form-group">
+                    <label for="launch_year">Launch Year</label>
+                    <input type="number" id="launch_year" class="form-control" placeholder="e.g. 2022" required />
+                  </div>
+                  <div class="form-group">
+                    <label for="os">Operating System</label>
+                    <select id="os" class="form-control" required>
+                      <option value="Android">Android</option>
+                      <option value="iOS">iOS</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                </div>
+
+                <h3 style="font-size: 1rem; margin-top: 1rem; margin-bottom: 0.5rem; color: var(--primary-color);">Display & Battery</h3>
+                <div class="grid-2">
+                  <div class="form-group">
+                    <label for="display_size_inch">Display Size (inches)</label>
+                    <input type="number" step="0.01" id="display_size_inch" class="form-control" placeholder="e.g. 6.1" required />
+                  </div>
+                  <div class="form-group">
+                    <label for="display_type">Display Type</label>
+                    <select id="display_type" class="form-control" required>
+                      <option value="AMOLED">AMOLED</option>
+                      <option value="OLED">OLED</option>
+                      <option value="LCD">LCD</option>
+                      <option value="IPS LCD">IPS LCD</option>
+                      <option value="TFT">TFT</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="grid-2">
+                  <div class="form-group">
+                    <label for="refresh_rate_hz">Refresh Rate (Hz)</label>
+                    <input type="number" id="refresh_rate_hz" class="form-control" placeholder="e.g. 120" required />
+                  </div>
+                  <div class="form-group">
+                    <label for="screen_to_body_ratio">Screen-to-body Ratio (%)</label>
+                    <input type="number" step="0.1" id="screen_to_body_ratio" class="form-control" placeholder="e.g. 88.5" required />
+                  </div>
+                </div>
+                <div class="grid-2">
+                  <div class="form-group">
+                    <label for="battery_mah">Battery Capacity (mAh)</label>
+                    <input type="number" id="battery_mah" class="form-control" placeholder="e.g. 5000" required />
+                  </div>
+                  <div class="form-group">
+                    <label for="fast_charging_w">Fast Charging (W)</label>
+                    <input type="number" id="fast_charging_w" class="form-control" placeholder="e.g. 33" required />
+                  </div>
+                </div>
+
+                <h3 style="font-size: 1rem; margin-top: 1rem; margin-bottom: 0.5rem; color: var(--primary-color);">Memory & Performance</h3>
+                <div class="grid-2">
+                  <div class="form-group">
+                    <label for="ram_gb">RAM (GB)</label>
+                    <select id="ram_gb" class="form-control" required>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="6">6</option>
+                      <option value="8">8</option>
+                      <option value="12">12</option>
+                      <option value="16">16</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="storage_gb">Storage (GB)</label>
+                    <select id="storage_gb" class="form-control" required>
+                      <option value="64">64</option>
+                      <option value="128">128</option>
+                      <option value="256">256</option>
+                      <option value="512">512</option>
+                      <option value="1024">1024 (1TB)</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="grid-2">
+                  <div class="form-group">
+                    <label for="expandable_storage">Expandable Storage</label>
+                    <select id="expandable_storage" class="form-control" required>
+                      <option value="Yes">Yes</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="chipset">Chipset</label>
+                    <input type="text" id="chipset" class="form-control" placeholder="e.g. Snapdragon 8 Gen 2" required />
+                  </div>
+                </div>
+                <div class="grid-2">
+                  <div class="form-group">
+                    <label for="cpu_score">CPU Score</label>
+                    <input type="number" id="cpu_score" class="form-control" placeholder="e.g. 85000" required />
+                  </div>
+                  <div class="form-group">
+                    <label for="gpu_score">GPU Score</label>
+                    <input type="number" id="gpu_score" class="form-control" placeholder="e.g. 70000" required />
+                  </div>
+                </div>
+
+                <h3 style="font-size: 1rem; margin-top: 1rem; margin-bottom: 0.5rem; color: var(--primary-color);">Cameras</h3>
+                <div class="grid-2">
+                  <div class="form-group">
+                    <label for="rear_camera_mp">Rear Camera (MP)</label>
+                    <input type="number" id="rear_camera_mp" class="form-control" placeholder="e.g. 64" required />
+                  </div>
+                  <div class="form-group">
+                    <label for="front_camera_mp">Front Camera (MP)</label>
+                    <input type="number" id="front_camera_mp" class="form-control" placeholder="e.g. 16" required />
+                  </div>
+                </div>
+                <div class="grid-2">
+                  <div class="form-group">
+                    <label for="camera_setup">Camera Setup</label>
+                    <select id="camera_setup" class="form-control" required>
+                      <option value="Single">Single</option>
+                      <option value="Dual">Dual</option>
+                      <option value="Triple">Triple</option>
+                      <option value="Quad">Quad</option>
+                    </select>
+                  </div>
+                </div>
+
+                <h3 style="font-size: 1rem; margin-top: 1rem; margin-bottom: 0.5rem; color: var(--primary-color);">Build & Additional Features</h3>
+                <div class="grid-2">
+                  <div class="form-group">
+                    <label for="weight_g">Weight (g)</label>
+                    <input type="number" id="weight_g" class="form-control" placeholder="e.g. 180" required />
+                  </div>
+                  <div class="form-group">
+                    <label for="thickness_mm">Thickness (mm)</label>
+                    <input type="number" step="0.1" id="thickness_mm" class="form-control" placeholder="e.g. 7.5" required />
+                  </div>
+                </div>
+                <div class="grid-2">
+                  <div class="form-group">
+                    <label for="build_material">Build Material</label>
+                    <select id="build_material" class="form-control" required>
+                      <option value="Glass">Glass</option>
+                      <option value="Plastic">Plastic</option>
+                      <option value="Metal">Metal</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="colors_available">Colors Available (Count)</label>
+                    <input type="number" id="colors_available" class="form-control" placeholder="e.g. 3" required />
+                  </div>
+                </div>
+                <div class="grid-2">
+                  <div class="form-group">
+                    <label for="5g_support">5G Support</label>
+                    <select id="5g_support" class="form-control" required>
+                      <option value="Yes">Yes</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="dual_sim">Dual SIM</label>
+                    <select id="dual_sim" class="form-control" required>
+                      <option value="Yes">Yes</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="grid-2">
+                  <div class="form-group">
+                    <label for="water_resistance">Water Resistance</label>
+                    <select id="water_resistance" class="form-control" required>
+                      <option value="Yes">Yes</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="wireless_charging">Wireless Charging</label>
+                    <select id="wireless_charging" class="form-control" required>
+                      <option value="Yes">Yes</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="grid-2">
+                  <div class="form-group">
+                    <label for="fingerprint_sensor">Fingerprint Sensor</label>
+                    <select id="fingerprint_sensor" class="form-control" required>
+                      <option value="Yes">Yes</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="face_unlock">Face Unlock</label>
+                    <select id="face_unlock" class="form-control" required>
+                      <option value="Yes">Yes</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="grid-2">
+                  <div class="form-group">
+                    <label for="bluetooth_version">Bluetooth Version</label>
+                    <input type="number" step="0.1" id="bluetooth_version" class="form-control" placeholder="e.g. 5.2" required />
+                  </div>
+                  <div class="form-group">
+                    <label for="wifi_version">Wi-Fi Version</label>
+                    <input type="number" id="wifi_version" class="form-control" placeholder="e.g. 6" required />
+                  </div>
+                </div>
+                <div class="grid-2">
+                  <div class="form-group">
+                    <label for="warranty_years">Warranty (Years)</label>
+                    <input type="number" id="warranty_years" class="form-control" placeholder="e.g. 1" required />
+                  </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary w-full" style="margin-top: 1rem;">
+                  <i class="fa-solid fa-wand-magic-sparkles" style="margin-right: 0.5rem;"></i> Predict Current Price
+                </button>
+              </form>
+            </div>
+            
+            <div class="glass-card" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+              <div class="feature-icon-wrapper icon-blue feature-icon-large" style="margin-bottom: 2rem;">
+                <i class="fa-solid fa-chart-simple"></i>
+              </div>
+              <h2 style="margin-bottom: 0.5rem; font-size: 1.25rem;">Predicted Current Price</h2>
+              <p style="margin-bottom: 2rem; color: var(--text-secondary);">Fill out the form and click predict to see the estimated market price.</p>
+              
+              <div id="predictionResult" style="display: none; width: 100%;">
+                <div class="result-price" id="priceValue">₹0</div>
+                <div class="result-confidence">Category: <span id="confidenceValue" style="color: var(--success-color); font-weight: bold;"></span></div>
+                
+                <div style="margin-top: 2rem; text-align: left; background: rgba(0,0,0,0.2); padding: 1rem; border-radius: var(--radius-md);">
+                  <div class="stat-item">
+                    <span class="stat-label">Model Used</span>
+                    <span class="stat-value">XGBoost Classifier</span>
+                  </div>
+                  <div class="stat-item">
+                    <span class="stat-label">Dataset Similarity</span>
+                    <span class="stat-value">High</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="dashboard-footer">
+            Phone Price Prediction System &bull; Powered by AI
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+    <script>
+      // Backend Flask API endpoint
+      const API_URL = '/predict-current-price';
+
+      // Auto-fill dummy data for quick testing
+      document.addEventListener('DOMContentLoaded', () => {
+        const dummyData = {
+          brand: "Nothing", model_name: "Phone (1)", os: "Android", launch_year: 2022, 
+          '5g_support': "Yes", dual_sim: "Yes", expandable_storage: "No", 
+          water_resistance: "Yes", wireless_charging: "Yes", fingerprint_sensor: "Yes", 
+          face_unlock: "Yes", gpu_score: 50000, cpu_score: 60000, 
+          screen_to_body_ratio: 85.8, build_material: "Glass", colors_available: 2, 
+          warranty_years: 1, bluetooth_version: 5.2, wifi_version: 6, 
+          chipset: "Snapdragon 778G", ram_gb: 8, storage_gb: 256, display_size_inch: 6.55, 
+          display_type: "OLED", refresh_rate_hz: 120, battery_mah: 4500, 
+          fast_charging_w: 33, rear_camera_mp: 50, front_camera_mp: 16, 
+          camera_setup: "Dual", weight_g: 194, thickness_mm: 8.3
+        };
+        for (const [key, value] of Object.entries(dummyData)) {
+          const el = document.getElementById(key);
+          if (el) el.value = value;
+        }
+      });
+
+      document.getElementById('currentPriceForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const resultDiv = document.getElementById('predictionResult');
+        const priceVal = document.getElementById('priceValue');
+        const confVal = document.getElementById('confidenceValue');
+        
+        // Simulating loading state
+        priceVal.innerHTML = 'Predicting...';
+        resultDiv.style.display = 'block';
+        
+        // Collect form data matching dataset columns
+        const formData = {
+          brand: document.getElementById('brand').value,
+          model_name: document.getElementById('model_name').value,
+          os: document.getElementById('os').value,
+          launch_year: parseInt(document.getElementById('launch_year').value),
+          '5g_support': document.getElementById('5g_support').value,
+          dual_sim: document.getElementById('dual_sim').value,
+          expandable_storage: document.getElementById('expandable_storage').value,
+          water_resistance: document.getElementById('water_resistance').value,
+          wireless_charging: document.getElementById('wireless_charging').value,
+          fingerprint_sensor: document.getElementById('fingerprint_sensor').value,
+          face_unlock: document.getElementById('face_unlock').value,
+          gpu_score: parseInt(document.getElementById('gpu_score').value),
+          cpu_score: parseInt(document.getElementById('cpu_score').value),
+          screen_to_body_ratio: parseFloat(document.getElementById('screen_to_body_ratio').value),
+          build_material: document.getElementById('build_material').value,
+          colors_available: parseInt(document.getElementById('colors_available').value),
+          warranty_years: parseInt(document.getElementById('warranty_years').value),
+          bluetooth_version: parseFloat(document.getElementById('bluetooth_version').value),
+          wifi_version: parseInt(document.getElementById('wifi_version').value),
+          chipset: document.getElementById('chipset').value,
+          ram_gb: parseInt(document.getElementById('ram_gb').value),
+          storage_gb: parseInt(document.getElementById('storage_gb').value),
+          display_size_inch: parseFloat(document.getElementById('display_size_inch').value),
+          display_type: document.getElementById('display_type').value,
+          refresh_rate_hz: parseInt(document.getElementById('refresh_rate_hz').value),
+          battery_mah: parseInt(document.getElementById('battery_mah').value),
+          fast_charging_w: parseInt(document.getElementById('fast_charging_w').value),
+          rear_camera_mp: parseInt(document.getElementById('rear_camera_mp').value),
+          front_camera_mp: parseInt(document.getElementById('front_camera_mp').value),
+          camera_setup: document.getElementById('camera_setup').value,
+          weight_g: parseInt(document.getElementById('weight_g').value),
+          thickness_mm: parseFloat(document.getElementById('thickness_mm').value)
+        };
+
+        try {
+          // Send data to Flask backend
+          const response = await fetch(API_URL, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+          });
+          
+          const data = await response.json();
+
+          if (!response.ok || !data.success) {
+            throw new Error(data.error || 'Failed to get prediction from server.');
+          }
+          
+          // Updating the UI
+          priceVal.innerHTML = data.price_range;
+          confVal.innerHTML = data.predicted_class;
+          
+        } catch (error) {
+          console.error("Prediction Error:", error);
+          priceVal.innerHTML = '<span style="color: #EF4444; font-size: 1.1rem;">' + error.message + '</span>';
+          confVal.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Error';
+        }
+      });
+    </script>
+  </body>
+</html>

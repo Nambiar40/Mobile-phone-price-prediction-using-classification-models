@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <title>Register - Phone Price Prediction</title>
+      <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <!-- Glowing Background Elements -->
+    <div class="bg-glow-1"></div>
+    <div class="bg-glow-2"></div>
+
+    <div class="auth-container">
+      <!-- Left Side -->
+      <div class="auth-left">
+        <div class="brand-logo" style="margin-bottom: 2rem;">
+          <!-- SVG Logo Placeholder -->
+          <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="24" height="24" rx="6" fill="url(#paint0_linear)" />
+            <path d="M12 6V18M6 12H18" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <defs>
+              <linearGradient id="paint0_linear" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#7C3AED" />
+                <stop offset="1" stop-color="#3B82F6" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <h1 class="brand-title">Phone Price Prediction</h1>
+        <p class="brand-desc">AI Powered Mobile Price Prediction Platform</p>
+        
+        <div class="bottom-copy">
+          &copy; 2026 Phone Price Prediction
+        </div>
+      </div>
+
+      <!-- Right Side -->
+      <div class="auth-right">
+        <div class="glass-card auth-card">
+          <div class="auth-header">
+            <h2>Create Account</h2>
+            <p>Get started with AI Prediction</p>
+          </div>
+
+          <form id="registerForm">
+            <div class="form-group">
+              <label for="fullname">Full Name</label>
+              <input type="text" id="fullname" class="form-control" placeholder="Enter your full name" required />
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" class="form-control" placeholder="Enter your email" required />
+            </div>
+
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" id="password" class="form-control" placeholder="Create a password" required />
+            </div>
+
+            <div class="form-group">
+              <label for="confirm-password">Confirm Password</label>
+              <input type="password" id="confirm-password" class="form-control" placeholder="Confirm your password" required />
+            </div>
+
+            <div class="flex items-center" style="margin-bottom: 1.5rem; margin-top: 1rem;">
+              <div class="checkbox-group">
+                <input type="checkbox" id="terms" required />
+                <label for="terms">I agree to <a href="#">Terms & Conditions</a></label>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block" style="margin-bottom: 1.5rem;">Create Account</button>
+
+            <div class="auth-footer">
+              <span style="color: var(--text-secondary);">Already have an account?</span>
+              <a href="/index.html" style="font-weight: 600; margin-left: 0.5rem;">Login</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+    <script>
+      document.getElementById('registerForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const fullname = document.getElementById('fullname').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirm-password').value;
+        
+        if (password !== confirmPassword) {
+          alert('Passwords do not match');
+          return;
+        }
+        
+        try {
+          const response = await fetch('/api/register', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ fullname, email, password })
+          });
+          
+          const data = await response.json();
+          if (data.success) {
+            alert('Registration successful! Please login.');
+            window.location.href = '/index.html';
+          } else {
+            alert(data.error || 'Registration failed');
+          }
+        } catch (err) {
+          console.error(err);
+          alert('Failed to connect to server');
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Models - Price Predict AI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="../src/style.css" />
+    <link rel="stylesheet" href="admin.css" />
+    <style>
+      .model-metrics {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.75rem;
+        margin: 1.5rem 0;
+        padding: 1rem;
+        background: rgba(0,0,0,0.2);
+        border-radius: var(--radius-md);
+      }
+      .metric {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.875rem;
+      }
+      .metric-label { color: var(--text-secondary); }
+      .metric-val { font-weight: 600; color: var(--text-main); }
+    </style>
+  </head>
+  <body class="admin-layout">
+    <div class="bg-glow-1"></div>
+    <div class="bg-glow-2"></div>
+    
+    <div id="admin-app">
+      <div class="page-header">
+        <div class="page-title">
+          <h1>AI Model Management</h1>
+          <p>Monitor, retrain, and deploy machine learning models.</p>
+        </div>
+        <div class="header-actions">
+          <button class="btn btn-pill btn-blue" onclick="window.showToast('Training Started', 'Model training job queued.', 'info')"><i class="fa-solid fa-rotate"></i> Retrain All</button>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <!-- Model 1 -->
+        <div class="glass-card stat-card">
+          <div class="flex justify-between items-start mb-2">
+            <div class="flex items-center gap-3">
+              <div class="stat-icon icon-purple"><i class="fa-solid fa-tags"></i></div>
+              <div>
+                <h3 style="margin-bottom: 0;">Current Price Model</h3>
+                <span style="font-size: 0.75rem; color: var(--text-secondary);">XGBoost Regressor (v4.2)</span>
+              </div>
+            </div>
+            <span class="status-badge status-completed">Active</span>
+          </div>
+          
+          <div class="model-metrics">
+            <div class="metric"><span class="metric-label">Accuracy (R²)</span><span class="metric-val text-success">0.96</span></div>
+            <div class="metric"><span class="metric-label">MAE</span><span class="metric-val">$42.50</span></div>
+            <div class="metric"><span class="metric-label">RMSE</span><span class="metric-val">$58.20</span></div>
+            <div class="metric"><span class="metric-label">Latency</span><span class="metric-val">45ms</span></div>
+          </div>
+          
+          <div style="font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 1rem;">
+            Last trained: Jul 15, 2026 on Dataset v2.4.1
+          </div>
+          
+          <div class="flex gap-2">
+            <button class="btn btn-primary" style="flex: 1;"><i class="fa-solid fa-brain"></i> Retrain</button>
+            <button class="btn btn-outline" style="flex: 1;"><i class="fa-solid fa-chart-line"></i> Metrics</button>
+            <button class="btn btn-outline" style="padding: 0 1rem;"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+          </div>
+        </div>
+
+        <!-- Model 2 -->
+        <div class="glass-card stat-card">
+          <div class="flex justify-between items-start mb-2">
+            <div class="flex items-center gap-3">
+              <div class="stat-icon icon-blue"><i class="fa-solid fa-clock-rotate-left"></i></div>
+              <div>
+                <h3 style="margin-bottom: 0;">Future Price Model</h3>
+                <span style="font-size: 0.75rem; color: var(--text-secondary);">LSTM Time Series (v2.1)</span>
+              </div>
+            </div>
+            <span class="status-badge status-completed">Active</span>
+          </div>
+          
+          <div class="model-metrics">
+            <div class="metric"><span class="metric-label">Accuracy (R²)</span><span class="metric-val">0.89</span></div>
+            <div class="metric"><span class="metric-label">MAE</span><span class="metric-val">$85.00</span></div>
+            <div class="metric"><span class="metric-label">RMSE</span><span class="metric-val">$112.40</span></div>
+            <div class="metric"><span class="metric-label">Latency</span><span class="metric-val">120ms</span></div>
+          </div>
+          
+          <div style="font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 1rem;">
+            Last trained: Jun 20, 2026 on Dataset v2.4.0
+          </div>
+          
+          <div class="flex gap-2">
+            <button class="btn btn-primary" style="flex: 1;"><i class="fa-solid fa-brain"></i> Retrain</button>
+            <button class="btn btn-outline" style="flex: 1;"><i class="fa-solid fa-chart-line"></i> Metrics</button>
+            <button class="btn btn-outline" style="padding: 0 1rem;"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+          </div>
+        </div>
+
+        <!-- Model 3 -->
+        <div class="glass-card stat-card">
+          <div class="flex justify-between items-start mb-2">
+            <div class="flex items-center gap-3">
+              <div class="stat-icon icon-green"><i class="fa-solid fa-hand-holding-dollar"></i></div>
+              <div>
+                <h3 style="margin-bottom: 0;">Resale Value Model</h3>
+                <span style="font-size: 0.75rem; color: var(--text-secondary);">Random Forest (v3.0)</span>
+              </div>
+            </div>
+            <span class="status-badge status-completed">Active</span>
+          </div>
+          
+          <div class="model-metrics">
+            <div class="metric"><span class="metric-label">Accuracy (R²)</span><span class="metric-val">0.92</span></div>
+            <div class="metric"><span class="metric-label">MAE</span><span class="metric-val">$35.00</span></div>
+            <div class="metric"><span class="metric-label">RMSE</span><span class="metric-val">$48.10</span></div>
+            <div class="metric"><span class="metric-label">Latency</span><span class="metric-val">30ms</span></div>
+          </div>
+          
+          <div style="font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 1rem;">
+            Last trained: Jul 10, 2026 on Dataset v2.4.1
+          </div>
+          
+          <div class="flex gap-2">
+            <button class="btn btn-primary" style="flex: 1;"><i class="fa-solid fa-brain"></i> Retrain</button>
+            <button class="btn btn-outline" style="flex: 1;"><i class="fa-solid fa-chart-line"></i> Metrics</button>
+            <button class="btn btn-outline" style="padding: 0 1rem;"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+          </div>
+        </div>
+
+        <!-- Model 4 -->
+        <div class="glass-card stat-card">
+          <div class="flex justify-between items-start mb-2">
+            <div class="flex items-center gap-3">
+              <div class="stat-icon icon-orange"><i class="fa-solid fa-eye"></i></div>
+              <div>
+                <h3 style="margin-bottom: 0;">OCR Specs Model</h3>
+                <span style="font-size: 0.75rem; color: var(--text-secondary);">Tesseract / CNN (v1.5)</span>
+              </div>
+            </div>
+            <span class="status-badge" style="background: rgba(245, 158, 11, 0.1); color: #F59E0B;">Training</span>
+          </div>
+          
+          <div class="model-metrics">
+            <div class="metric"><span class="metric-label">F1 Score</span><span class="metric-val">0.94</span></div>
+            <div class="metric"><span class="metric-label">Precision</span><span class="metric-val">0.96</span></div>
+            <div class="metric"><span class="metric-label">Recall</span><span class="metric-val">0.92</span></div>
+            <div class="metric"><span class="metric-label">Latency</span><span class="metric-val">850ms</span></div>
+          </div>
+          
+          <div style="font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 1rem;">
+            Training in progress: 68% complete...
+          </div>
+          
+          <div class="flex gap-2">
+            <button class="btn btn-primary" style="flex: 1;" disabled><i class="fa-solid fa-spinner fa-spin"></i> Training...</button>
+            <button class="btn btn-outline" style="flex: 1;"><i class="fa-solid fa-ban"></i> Cancel</button>
+            <button class="btn btn-outline" style="padding: 0 1rem;"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="admin.js"></script>
+    <script src="layout.js"></script>
+  </body>
+</html>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <title>OCR Prediction - Phone Price Prediction</title>
+      <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <div class="dashboard-layout">
+      <!-- LEFT SIDEBAR -->
+      <aside class="sidebar">
+        <div class="sidebar-brand">
+          <div class="sidebar-logo">
+            <i class="fa-solid fa-robot"></i>
+          </div>
+          <div class="sidebar-title">Price Predict AI</div>
+        </div>
+
+        <ul class="sidebar-menu">
+          <li class="menu-item"><a href="/dashboard.html" class="menu-link"><i class="fa-solid fa-house"></i> Dashboard</a></li>
+          <li class="menu-item"><a href="/ocr-scanner.html" class="menu-link active"><i class="fa-solid fa-camera"></i> OCR Prediction</a></li>
+          <li class="menu-item"><a href="/current-price.html" class="menu-link"><i class="fa-solid fa-chart-simple"></i> Current Price</a></li>
+          <li class="menu-item"><a href="/price-tracker.html" class="menu-link"><i class="fa-solid fa-arrow-trend-up"></i> Price Tracker</a></li>
+          <li class="menu-item"><a href="/resale-price.html" class="menu-link"><i class="fa-solid fa-sack-dollar"></i> Resale Price</a></li>
+          <li class="menu-item"><a href="/history.html" class="menu-link"><i class="fa-solid fa-folder-open"></i> History</a></li>
+        </ul>
+
+        <div class="sidebar-footer">
+          <ul class="sidebar-menu">
+
+            <li class="menu-item"><a href="/index.html" class="menu-link"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a></li>
+          </ul>
+        </div>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <div class="main-content">
+        <!-- TOP NAVBAR -->
+        <header class="top-navbar">
+          <div class="search-bar">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" placeholder="Search predictions..." />
+          </div>
+
+          <div class="nav-actions">
+            <i class="fa-solid fa-moon nav-icon" id="themeToggle" title="Toggle Theme"></i>
+            <i class="fa-solid fa-bell nav-icon" title="Notifications"></i>
+            
+            <div class="user-profile">
+              <div class="user-avatar">AD</div>
+              <div class="user-info">
+                <span class="user-name">Admin User</span>
+                <span class="user-role">Premium Plan</span>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- DASHBOARD BODY -->
+        <div class="dashboard-body">
+          <div class="dashboard-header">
+            <h1>OCR Scanner</h1>
+            <p>Upload a phone invoice or bill to automatically extract details for resale prediction.</p>
+          </div>
+
+          <div class="dashboard-bottom">
+            <div class="glass-card" style="text-align: center;">
+              <h2 style="margin-bottom: 1.5rem; font-size: 1.25rem;">Upload Invoice</h2>
+              
+              <div id="uploadArea" style="border: 2px dashed var(--primary-color); border-radius: var(--radius-lg); padding: 3rem 1rem; margin-bottom: 1.5rem; cursor: pointer; transition: all 0.3s ease;">
+                <i class="fa-solid fa-cloud-arrow-up" style="font-size: 3rem; color: var(--primary-color); margin-bottom: 1rem;"></i>
+                <p>Click to upload or drag and drop</p>
+                <p style="font-size: 0.8rem; color: var(--text-secondary);">Supports JPG, PNG, PDF</p>
+                <input type="file" id="invoiceImage" accept="image/*" style="display: none;" />
+              </div>
+              
+              <div id="imagePreview" style="display: none; margin-bottom: 1.5rem;">
+                <img id="previewImg" src="" alt="Invoice Preview" style="max-width: 100%; max-height: 300px; border-radius: var(--radius-md);" />
+              </div>
+
+              <button id="extractBtn" class="btn btn-primary w-full" disabled>
+                <i class="fa-solid fa-magnifying-glass-chart" style="margin-right: 0.5rem;"></i> Extract Details
+              </button>
+            </div>
+            
+            <div class="glass-card" style="display: flex; flex-direction: column; justify-content: flex-start;">
+              <h2 style="margin-bottom: 1.5rem; font-size: 1.25rem;">Extracted Details</h2>
+              
+              <div id="extractedResult" style="display: none;">
+                <div class="grid-2">
+                  <div class="form-group">
+                    <label>Brand</label>
+                    <input type="text" id="extBrand" class="form-control" readonly />
+                  </div>
+                  <div class="form-group">
+                    <label>Model</label>
+                    <input type="text" id="extModel" class="form-control" readonly />
+                  </div>
+                </div>
+                <div class="grid-2">
+                  <div class="form-group">
+                    <label>Original Price (₹)</label>
+                    <input type="text" id="extPrice" class="form-control" readonly />
+                  </div>
+                  <div class="form-group">
+                    <label>Purchase Year</label>
+                    <input type="text" id="extYear" class="form-control" readonly />
+                  </div>
+                </div>
+                <div class="form-group" style="margin-top: 1rem;">
+                  <label>Scanned Barcode / QR Code</label>
+                  <input type="text" id="extBarcode" class="form-control" readonly style="background: rgba(46, 204, 113, 0.1); border-color: var(--success-color);" />
+                </div>
+              </div>
+              
+              <div id="emptyResult" style="text-align: center; color: var(--text-secondary); margin-top: 2rem;">
+                <i class="fa-solid fa-file-invoice" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+                <p>Upload an invoice to see extracted details here.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="dashboard-footer">
+            Phone Price Prediction System &bull; Powered by AI
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+    <script>
+      const uploadArea = document.getElementById('uploadArea');
+      const fileInput = document.getElementById('invoiceImage');
+      const previewImg = document.getElementById('previewImg');
+      const imagePreview = document.getElementById('imagePreview');
+      const extractBtn = document.getElementById('extractBtn');
+      const extractedResult = document.getElementById('extractedResult');
+      const emptyResult = document.getElementById('emptyResult');
+      
+      let selectedFile = null;
+
+      // File upload handling
+      uploadArea.addEventListener('click', () => fileInput.click());
+      
+      fileInput.addEventListener('change', (e) => {
+        if (e.target.files && e.target.files[0]) {
+          selectedFile = e.target.files[0];
+          
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            previewImg.src = e.target.result;
+            uploadArea.style.display = 'none';
+            imagePreview.style.display = 'block';
+            extractBtn.disabled = false;
+          };
+          reader.readAsDataURL(selectedFile);
+        }
+      });
+
+      // Extract details
+      extractBtn.addEventListener('click', async () => {
+        if (!selectedFile) return;
+        
+        const originalBtnHTML = extractBtn.innerHTML;
+        extractBtn.disabled = true;
+        extractBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin" style="margin-right: 0.5rem;"></i> Extracting...';
+        
+        const formData = new FormData();
+        formData.append('invoice_image', selectedFile);
+        
+        try {
+          const response = await fetch('/ocr-extract', {
+            method: 'POST',
+            body: formData
+          });
+          
+          const data = await response.json();
+          
+          if (!response.ok || !data.success) {
+            throw new Error(data.error || 'Failed to extract text');
+          }
+          
+          // Fill inputs
+          document.getElementById('extBrand').value = data.extracted_data.brand || 'Not found';
+          document.getElementById('extModel').value = data.extracted_data.model || 'Not found';
+          document.getElementById('extPrice').value = data.extracted_data.original_price || 'Not found';
+          document.getElementById('extYear').value = data.extracted_data.purchase_year || 'Not found';
+          document.getElementById('extBarcode').value = data.extracted_data.barcode || 'No barcode detected';
+          
+          // Show result
+          emptyResult.style.display = 'none';
+          extractedResult.style.display = 'block';
+          
+        } catch (error) {
+          console.error("OCR Error:", error);
+          alert('Error extracting details: ' + error.message);
+        } finally {
+          extractBtn.disabled = false;
+          extractBtn.innerHTML = originalBtnHTML;
+        }
+      });
+      
+
+    </script>
+  </body>
+</html>

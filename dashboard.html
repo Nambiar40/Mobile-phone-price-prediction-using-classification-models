@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <title>Dashboard - Phone Price Prediction</title>
+      <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <div class="dashboard-layout">
+      <!-- LEFT SIDEBAR -->
+      <aside class="sidebar">
+        <div class="sidebar-brand">
+          <div class="sidebar-logo">
+            <i class="fa-solid fa-robot"></i>
+          </div>
+          <div class="sidebar-title">Price Predict AI</div>
+        </div>
+
+        <ul class="sidebar-menu">
+          <li class="menu-item"><a href="#" class="menu-link active"><i class="fa-solid fa-house"></i> Dashboard</a></li>
+          <li class="menu-item"><a href="/ocr-scanner.html" class="menu-link"><i class="fa-solid fa-camera"></i> OCR Prediction</a></li>
+          <li class="menu-item"><a href="/current-price.html" class="menu-link"><i class="fa-solid fa-chart-simple"></i> Current Price Range</a></li>
+          <li class="menu-item"><a href="/price-tracker.html" class="menu-link"><i class="fa-solid fa-arrow-trend-up"></i> Price Tracker</a></li>
+          <li class="menu-item"><a href="/resale-price.html" class="menu-link"><i class="fa-solid fa-sack-dollar"></i> Resale Price Range</a></li>
+          <li class="menu-item"><a href="/history.html" class="menu-link"><i class="fa-solid fa-folder-open"></i> History</a></li>
+        </ul>
+
+        <div class="sidebar-footer">
+          <ul class="sidebar-menu">
+
+            <li class="menu-item"><a href="/index.html" class="menu-link"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a></li>
+          </ul>
+        </div>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <div class="main-content">
+        <!-- TOP NAVBAR -->
+        <header class="top-navbar">
+          <div class="search-bar">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" placeholder="Search predictions..." />
+          </div>
+
+          <div class="nav-actions">
+            <i class="fa-solid fa-moon nav-icon" id="themeToggle" title="Toggle Theme"></i>
+            <i class="fa-solid fa-bell nav-icon" title="Notifications"></i>
+            
+            <div class="user-profile">
+              <div class="user-avatar">AD</div>
+              <div class="user-info">
+                <span class="user-name">Admin User</span>
+                <span class="user-role">Premium Plan</span>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- DASHBOARD BODY -->
+        <div class="dashboard-body">
+          <div class="dashboard-header">
+            <h1>Phone Price Prediction Dashboard</h1>
+            <p>Predict mobile prices using Artificial Intelligence</p>
+          </div>
+
+          <!-- Feature Cards (4) -->
+          <div class="feature-grid" style="grid-template-columns: 1fr 1fr;">
+            <!-- Card 1 -->
+            <div class="glass-card feature-card flex-row">
+              <div class="feature-icon-wrapper icon-blue feature-icon-large">
+                <i class="fa-solid fa-clipboard-list"></i>
+              </div>
+              <div class="feature-content">
+                <h3 class="feature-title" style="color: var(--secondary-color);">1. Current Market Price</h3>
+                <p class="feature-desc">Predict current market price of a mobile phone using its specifications.</p>
+                <button class="btn btn-sm btn-pill btn-blue" onclick="window.location.href='/current-price.html'">
+                  <i class="fa-solid fa-arrow-right"></i> Open Model
+                </button>
+              </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="glass-card feature-card flex-row">
+              <div class="feature-icon-wrapper icon-green feature-icon-large">
+                <i class="fa-solid fa-tags"></i>
+              </div>
+              <div class="feature-content">
+                <h3 class="feature-title" style="color: var(--success-color);">2. Resale Price Prediction</h3>
+                <p class="feature-desc">Predict resale value of a mobile phone using its specifications and condition.</p>
+                <button class="btn btn-sm btn-pill btn-green" onclick="window.location.href='/resale-price.html'">
+                  <i class="fa-solid fa-arrow-right"></i> Open Model
+                </button>
+              </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="glass-card feature-card flex-row">
+              <div class="feature-icon-wrapper icon-purple feature-icon-large">
+                <i class="fa-solid fa-camera"></i>
+              </div>
+              <div class="feature-content">
+                <h3 class="feature-title" style="color: var(--primary-color);">3. OCR Price Prediction</h3>
+                <p class="feature-desc">Upload a mobile phone image to extract details using OCR and predict the price range.</p>
+                <button class="btn btn-sm btn-pill btn-purple" onclick="window.location.href='/ocr-scanner.html'">
+                  <i class="fa-solid fa-arrow-right"></i> Open Model
+                </button>
+              </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="glass-card feature-card flex-row">
+              <div class="feature-icon-wrapper icon-orange feature-icon-large">
+                <i class="fa-solid fa-arrow-trend-up"></i>
+              </div>
+              <div class="feature-content">
+                <h3 class="feature-title" style="color: #F97316;">4. Price Tracker</h3>
+                <p class="feature-desc">Track the price history and trends of mobile phones.</p>
+                <button class="btn btn-sm btn-pill btn-orange" onclick="window.location.href='/price-tracker.html'">
+                  <i class="fa-solid fa-arrow-right"></i> Open Model
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="dashboard-footer">
+            Phone Price Prediction System &bull; Powered by AI
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI Chatbot Widget -->
+    <div class="chatbot-widget" id="chatbotWidget">
+      <!-- Chatbot Toggle Button -->
+      <button class="chatbot-toggle" id="chatbotToggle" aria-label="Toggle AI Assistant">
+        <i class="fa-solid fa-robot"></i>
+      </button>
+
+      <!-- Chatbot Window -->
+      <div class="chatbot-window" id="chatbotWindow">
+        <div class="chatbot-header">
+          <div class="chatbot-title">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+            <span>Price Predict AI</span>
+          </div>
+          <button class="chatbot-close" id="chatbotClose"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        
+        <div class="chatbot-messages" id="chatbotMessages">
+          <!-- Default Welcome Message -->
+          <div class="message ai-message">
+            <div class="message-content">
+              Hello! I'm your AI pricing assistant. How can I help you today? Ask me about market trends or how to price your phone!
+            </div>
+          </div>
+        </div>
+
+        <div class="chatbot-input">
+          <input type="text" id="chatbotInput" placeholder="Ask AI..." />
+          <button id="chatbotSend" aria-label="Send Message"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

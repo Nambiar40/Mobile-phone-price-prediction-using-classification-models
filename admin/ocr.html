@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OCR Management - Price Predict AI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="../src/style.css" />
+    <link rel="stylesheet" href="admin.css" />
+  </head>
+  <body class="admin-layout">
+    <div class="bg-glow-1"></div>
+    <div class="bg-glow-2"></div>
+    
+    <div id="admin-app">
+      <div class="page-header">
+        <div class="page-title">
+          <h1>OCR Management</h1>
+          <p>Review AI-extracted text and detected phone specifications from user uploads.</p>
+        </div>
+        <div class="header-actions">
+          <div class="search-bar" style="width: 250px; background: rgba(0,0,0,0.2);">
+            <i class="fa-solid fa-search text-secondary"></i>
+            <input type="text" placeholder="Search OCR ID..." />
+          </div>
+          <button class="btn btn-outline" style="padding: 0.5rem 1rem;"><i class="fa-solid fa-filter"></i> Filters</button>
+        </div>
+      </div>
+
+      <div class="ocr-gallery">
+        <!-- OCR Card 1 -->
+        <div class="glass-card ocr-card">
+          <div class="ocr-img-wrapper">
+            <img src="https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=500&auto=format&fit=crop&q=60" alt="Phone Box" />
+            <div class="ocr-overlay">
+              <button class="btn btn-primary btn-pill"><i class="fa-solid fa-expand"></i> View Image</button>
+            </div>
+          </div>
+          <div class="ocr-details">
+            <div class="flex justify-between items-center pb-2" style="border-bottom: 1px solid var(--border-color);">
+              <span class="ocr-detail-label">Status</span>
+              <span class="status-badge status-completed">Success</span>
+            </div>
+            <div class="ocr-detail-row">
+              <span class="ocr-detail-label">Extracted Text:</span>
+              <span class="ocr-detail-value" style="font-size: 0.75rem;">iPhone 13 Pro Max 256GB Sierra Blue...</span>
+            </div>
+            <div class="ocr-detail-row">
+              <span class="ocr-detail-label">Brand:</span>
+              <span class="ocr-detail-value text-primary">Apple</span>
+            </div>
+            <div class="ocr-detail-row">
+              <span class="ocr-detail-label">RAM / ROM:</span>
+              <span class="ocr-detail-value">6GB / 256GB</span>
+            </div>
+            <div class="ocr-detail-row">
+              <span class="ocr-detail-label">Confidence:</span>
+              <span class="ocr-detail-value text-success">98.5%</span>
+            </div>
+            <div class="flex gap-2 mt-2 pt-2" style="border-top: 1px solid var(--border-color);">
+              <button class="btn btn-outline" style="flex: 1; padding: 0.4rem; font-size: 0.75rem;">Edit Data</button>
+              <button class="btn btn-outline" style="flex: 1; padding: 0.4rem; font-size: 0.75rem; border-color: #EF4444; color: #EF4444;" onclick="window.deleteItem('OCR-1204')">Delete</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- OCR Card 2 -->
+        <div class="glass-card ocr-card">
+          <div class="ocr-img-wrapper">
+            <img src="https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=500&auto=format&fit=crop&q=60" alt="Samsung Box" />
+            <div class="ocr-overlay">
+              <button class="btn btn-primary btn-pill"><i class="fa-solid fa-expand"></i> View Image</button>
+            </div>
+          </div>
+          <div class="ocr-details">
+            <div class="flex justify-between items-center pb-2" style="border-bottom: 1px solid var(--border-color);">
+              <span class="ocr-detail-label">Status</span>
+              <span class="status-badge status-completed">Success</span>
+            </div>
+            <div class="ocr-detail-row">
+              <span class="ocr-detail-label">Extracted Text:</span>
+              <span class="ocr-detail-value" style="font-size: 0.75rem;">Samsung Galaxy S22 Ultra 512GB...</span>
+            </div>
+            <div class="ocr-detail-row">
+              <span class="ocr-detail-label">Brand:</span>
+              <span class="ocr-detail-value text-primary">Samsung</span>
+            </div>
+            <div class="ocr-detail-row">
+              <span class="ocr-detail-label">RAM / ROM:</span>
+              <span class="ocr-detail-value">12GB / 512GB</span>
+            </div>
+            <div class="ocr-detail-row">
+              <span class="ocr-detail-label">Confidence:</span>
+              <span class="ocr-detail-value text-success">96.2%</span>
+            </div>
+            <div class="flex gap-2 mt-2 pt-2" style="border-top: 1px solid var(--border-color);">
+              <button class="btn btn-outline" style="flex: 1; padding: 0.4rem; font-size: 0.75rem;">Edit Data</button>
+              <button class="btn btn-outline" style="flex: 1; padding: 0.4rem; font-size: 0.75rem; border-color: #EF4444; color: #EF4444;">Delete</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- OCR Card 3 -->
+        <div class="glass-card ocr-card">
+          <div class="ocr-img-wrapper">
+            <img src="https://images.unsplash.com/photo-1541560052-77ec1bbc09f7?w=500&auto=format&fit=crop&q=60" alt="Blurry Box" />
+            <div class="ocr-overlay">
+              <button class="btn btn-primary btn-pill"><i class="fa-solid fa-expand"></i> View Image</button>
+            </div>
+          </div>
+          <div class="ocr-details">
+            <div class="flex justify-between items-center pb-2" style="border-bottom: 1px solid var(--border-color);">
+              <span class="ocr-detail-label">Status</span>
+              <span class="status-badge" style="background: rgba(245, 158, 11, 0.1); color: #F59E0B;">Low Conf.</span>
+            </div>
+            <div class="ocr-detail-row">
+              <span class="ocr-detail-label">Extracted Text:</span>
+              <span class="ocr-detail-value" style="font-size: 0.75rem;">OnePlus 9 ... 8G ... 128 ...</span>
+            </div>
+            <div class="ocr-detail-row">
+              <span class="ocr-detail-label">Brand:</span>
+              <span class="ocr-detail-value text-primary">OnePlus</span>
+            </div>
+            <div class="ocr-detail-row">
+              <span class="ocr-detail-label">RAM / ROM:</span>
+              <span class="ocr-detail-value">8GB / 128GB</span>
+            </div>
+            <div class="ocr-detail-row">
+              <span class="ocr-detail-label">Confidence:</span>
+              <span class="ocr-detail-value" style="color: #F59E0B;">42.1%</span>
+            </div>
+            <div class="flex gap-2 mt-2 pt-2" style="border-top: 1px solid var(--border-color);">
+              <button class="btn btn-outline" style="flex: 1; padding: 0.4rem; font-size: 0.75rem;">Manual Fix</button>
+              <button class="btn btn-outline" style="flex: 1; padding: 0.4rem; font-size: 0.75rem; border-color: #EF4444; color: #EF4444;">Delete</button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- OCR Card 4 -->
+        <div class="glass-card ocr-card">
+          <div class="ocr-img-wrapper">
+            <div style="width: 100%; height: 100%; background: #1F2937; display: flex; align-items: center; justify-content: center; color: #9CA3AF;">
+              <i class="fa-solid fa-image-slash fa-3x"></i>
+            </div>
+          </div>
+          <div class="ocr-details">
+            <div class="flex justify-between items-center pb-2" style="border-bottom: 1px solid var(--border-color);">
+              <span class="ocr-detail-label">Status</span>
+              <span class="status-badge" style="background: rgba(239, 68, 68, 0.1); color: #EF4444;">Failed</span>
+            </div>
+            <div class="ocr-detail-row">
+              <span class="ocr-detail-label">Error:</span>
+              <span class="ocr-detail-value" style="font-size: 0.75rem; color: #EF4444;">No text detected in image</span>
+            </div>
+            <div class="flex gap-2 mt-2 pt-2" style="border-top: 1px solid var(--border-color);">
+              <button class="btn btn-outline" style="flex: 1; padding: 0.4rem; font-size: 0.75rem; border-color: #EF4444; color: #EF4444;">Delete Entry</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      
+      <div class="pagination">
+        <div class="page-info">Showing 1 to 4 of 18,290 images</div>
+        <div class="page-controls">
+          <button class="page-btn" disabled><i class="fa-solid fa-chevron-left"></i></button>
+          <button class="page-btn active">1</button>
+          <button class="page-btn">2</button>
+          <button class="page-btn"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <script src="admin.js"></script>
+    <script src="layout.js"></script>
+  </body>
+</html>

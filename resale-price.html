@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <title>Resale Price Prediction - Phone Price Prediction</title>
+      <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <div class="dashboard-layout">
+      <!-- LEFT SIDEBAR -->
+      <aside class="sidebar">
+        <div class="sidebar-brand">
+          <div class="sidebar-logo">
+            <i class="fa-solid fa-robot"></i>
+          </div>
+          <div class="sidebar-title">Price Predict AI</div>
+        </div>
+
+        <ul class="sidebar-menu">
+          <li class="menu-item"><a href="/dashboard.html" class="menu-link"><i class="fa-solid fa-house"></i> Dashboard</a></li>
+          <li class="menu-item"><a href="/ocr-scanner.html" class="menu-link"><i class="fa-solid fa-camera"></i> OCR Prediction</a></li>
+          <li class="menu-item"><a href="/current-price.html" class="menu-link"><i class="fa-solid fa-chart-simple"></i> Current Price</a></li>
+          <li class="menu-item"><a href="/price-tracker.html" class="menu-link"><i class="fa-solid fa-arrow-trend-up"></i> Price Tracker</a></li>
+          <li class="menu-item"><a href="/resale-price.html" class="menu-link active"><i class="fa-solid fa-sack-dollar"></i> Resale Price</a></li>
+          <li class="menu-item"><a href="/history.html" class="menu-link"><i class="fa-solid fa-folder-open"></i> History</a></li>
+        </ul>
+
+        <div class="sidebar-footer">
+          <ul class="sidebar-menu">
+
+            <li class="menu-item"><a href="/index.html" class="menu-link"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a></li>
+          </ul>
+        </div>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <div class="main-content">
+        <!-- TOP NAVBAR -->
+        <header class="top-navbar">
+          <div class="search-bar">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" placeholder="Search predictions..." />
+          </div>
+
+          <div class="nav-actions">
+            <i class="fa-solid fa-moon nav-icon" id="themeToggle" title="Toggle Theme"></i>
+            <i class="fa-solid fa-bell nav-icon" title="Notifications"></i>
+            
+            <div class="user-profile">
+              <div class="user-avatar">AD</div>
+              <div class="user-info">
+                <span class="user-name">Admin User</span>
+                <span class="user-role">Premium Plan</span>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- DASHBOARD BODY -->
+        <div class="dashboard-body">
+          <div class="dashboard-header">
+            <h1>Used Mobile Resale Price Prediction</h1>
+            <p>Enter the details of the used mobile phone below to get an estimated resale price.</p>
+          </div>
+
+          <div class="dashboard-bottom">
+            <div class="glass-card">
+              <h2 style="margin-bottom: 1.5rem; font-size: 1.25rem;">Phone Specifications & Condition</h2>
+              <form class="feature-form" id="resalePriceForm">
+                
+                <h3 style="font-size: 1rem; margin-top: 0.5rem; margin-bottom: 0.5rem; color: var(--primary-color);">Basic Information</h3>
+                <div class="grid-2">
+                  <div class="form-group">
+                    <label for="brand">Brand</label>
+                    <select id="brand" class="form-control" required>
+                      <option value="Apple">Apple</option>
+                      <option value="Samsung">Samsung</option>
+                      <option value="Google">Google</option>
+                      <option value="OnePlus">OnePlus</option>
+                      <option value="Xiaomi">Xiaomi</option>
+                      <option value="Vivo">Vivo</option>
+                      <option value="Oppo">Oppo</option>
+                      <option value="Realme">Realme</option>
+                      <option value="Motorola">Motorola</option>
+                      <option value="Nothing">Nothing</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="model">Model Name</label>
+                    <input type="text" id="model" class="form-control" placeholder="e.g. iPhone 13" required />
+                  </div>
+                </div>
+                <div class="grid-2">
+                  <div class="form-group">
+                    <label for="release_year">Release Year</label>
+                    <input type="number" id="release_year" class="form-control" placeholder="e.g. 2022" required />
+                  </div>
+                  <div class="form-group">
+                    <label for="os_type">OS Type</label>
+                    <select id="os_type" class="form-control" required>
+                      <option value="Android">Android</option>
+                      <option value="iOS">iOS</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                </div>
+                
+                <div class="grid-2">
+                  <div class="form-group">
+                    <label for="chipset">Chipset (For Validation)</label>
+                    <input type="text" id="chipset" class="form-control" placeholder="e.g. A15 Bionic, Snapdragon 8 Gen 2" />
+                  </div>
+                </div>
+                
+                <h3 style="font-size: 1rem; margin-top: 1rem; margin-bottom: 0.5rem; color: var(--primary-color);">Hardware Specs</h3>
+                <div class="grid-2">
+                  <div class="form-group">
+                    <label for="ram_gb">RAM (GB)</label>
+                    <select id="ram_gb" class="form-control" required>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="6">6</option>
+                      <option value="8">8</option>
+                      <option value="12">12</option>
+                      <option value="16">16</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="storage_gb">Storage (GB)</label>
+                    <select id="storage_gb" class="form-control" required>
+                      <option value="64">64</option>
+                      <option value="128">128</option>
+                      <option value="256">256</option>
+                      <option value="512">512</option>
+                      <option value="1024">1024 (1TB)</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="grid-2">
+                  <div class="form-group">
+                    <label for="battery_capacity">Battery Capacity (mAh)</label>
+                    <input type="number" id="battery_capacity" class="form-control" placeholder="e.g. 4500" required />
+                  </div>
+                  <div class="form-group">
+                    <label for="screen_size_inches">Screen Size (inches)</label>
+                    <input type="number" step="0.1" id="screen_size_inches" class="form-control" placeholder="e.g. 6.5" required />
+                  </div>
+                </div>
+                <div class="grid-2">
+                  <div class="form-group">
+                    <label for="processor_score">Processor Score</label>
+                    <input type="number" id="processor_score" class="form-control" placeholder="e.g. 80000" required />
+                  </div>
+                  <div class="form-group">
+                    <label for="camera_score">Camera Score</label>
+                    <input type="number" id="camera_score" class="form-control" placeholder="e.g. 85" required />
+                  </div>
+                </div>
+                <div class="grid-2">
+                  <div class="form-group">
+                    <label for="has_5g">5G Support</label>
+                    <select id="has_5g" class="form-control" required>
+                      <option value="1">Yes</option>
+                      <option value="0">No</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="original_price">Original Price (₹)</label>
+                    <input type="number" step="0.01" id="original_price" class="form-control" placeholder="e.g. 50000" required />
+                  </div>
+                </div>
+
+                <h3 style="font-size: 1rem; margin-top: 1rem; margin-bottom: 0.5rem; color: var(--primary-color);">Purchase Details</h3>
+                <div class="grid-2">
+                  <div class="form-group">
+                    <label for="purchase_year">Purchase Year</label>
+                    <input type="number" id="purchase_year" class="form-control" placeholder="e.g. 2023" required />
+                  </div>
+                  <div class="form-group">
+                    <label for="age_months">Age (Months)</label>
+                    <input type="number" id="age_months" class="form-control" placeholder="e.g. 15" required />
+                  </div>
+                </div>
+
+                <h3 style="font-size: 1rem; margin-top: 1rem; margin-bottom: 0.5rem; color: var(--primary-color);">Condition Details</h3>
+                <div class="grid-2">
+                  <div class="form-group">
+                    <label for="condition">Overall Condition</label>
+                    <select id="condition" class="form-control" required>
+                      <option value="Excellent">Excellent</option>
+                      <option value="Good">Good</option>
+                      <option value="Fair">Fair</option>
+                      <option value="Poor">Poor</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="battery_health">Battery Health (%)</label>
+                    <input type="number" step="0.1" id="battery_health" class="form-control" placeholder="e.g. 85.5" required />
+                  </div>
+                </div>
+                <div class="grid-2">
+                  <div class="form-group">
+                    <label for="screen_cracked">Screen Cracked?</label>
+                    <select id="screen_cracked" class="form-control" required>
+                      <option value="0">No</option>
+                      <option value="1">Yes</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="body_damage">Body Damage?</label>
+                    <select id="body_damage" class="form-control" required>
+                      <option value="0">No</option>
+                      <option value="1">Yes</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="grid-2">
+                  <div class="form-group">
+                    <label for="water_damage">Water Damage?</label>
+                    <select id="water_damage" class="form-control" required>
+                      <option value="0">No</option>
+                      <option value="1">Yes</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="repair_history">Repair History</label>
+                    <select id="repair_history" class="form-control" required>
+                      <option value="0">None</option>
+                      <option value="1">Repaired</option>
+                    </select>
+                  </div>
+                </div>
+
+                <h3 style="font-size: 1rem; margin-top: 1rem; margin-bottom: 0.5rem; color: var(--primary-color);">Accessories & Warranty</h3>
+                <div class="grid-2">
+                  <div class="form-group">
+                    <label for="warranty_remaining_months">Warranty Remaining (Months)</label>
+                    <input type="number" id="warranty_remaining_months" class="form-control" placeholder="e.g. 6" required />
+                  </div>
+                  <div class="form-group">
+                    <label for="box_available">Original Box?</label>
+                    <select id="box_available" class="form-control" required>
+                      <option value="1">Yes</option>
+                      <option value="0">No</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="grid-2">
+                  <div class="form-group">
+                    <label for="charger_available">Original Charger?</label>
+                    <select id="charger_available" class="form-control" required>
+                      <option value="1">Yes</option>
+                      <option value="0">No</option>
+                    </select>
+                  </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-full" style="margin-top: 1rem;">
+                  <i class="fa-solid fa-wand-magic-sparkles" style="margin-right: 0.5rem;"></i> Predict Resale Price
+                </button>
+              </form>
+            </div>
+            
+            <div class="glass-card" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+              <div class="feature-icon-wrapper icon-blue feature-icon-large" style="margin-bottom: 2rem;">
+                <i class="fa-solid fa-sack-dollar"></i>
+              </div>
+              <h2 style="margin-bottom: 0.5rem; font-size: 1.25rem;">Prediction Result</h2>
+              <p style="margin-bottom: 2rem; color: var(--text-secondary);">Fill out the form and click predict to see the estimated resale value.</p>
+              
+              <div id="predictionResult" style="display: none; width: 100%;">
+                <div class="result-price" id="priceValue">Rs.0</div>
+                <div id="confidenceText" style="font-size: 1rem; margin-top: 0.5rem;"><span id="confidenceValue" style="color: var(--success-color); font-weight: bold;">0%</span> confidence</div>
+                
+                <!-- Top 3 Predictions -->
+                <div id="topPredictions" style="margin-top: 1.5rem; text-align: left; width: 100%;"></div>
+                
+                <div style="margin-top: 1.5rem; text-align: left; background: rgba(0,0,0,0.2); padding: 1rem; border-radius: var(--radius-md);">
+                  <div class="stat-item">
+                    <span class="stat-label">Model Used</span>
+                    <span class="stat-value">Random Forest Classifier</span>
+                  </div>
+
+                  <div id="warningsSection" style="display: none; margin-top: 0.5rem;">
+                    <span class="stat-label" style="color: #F97316;">Warnings</span>
+                    <div id="warningsList" style="font-size: 0.8rem; color: #F97316;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="dashboard-footer">
+            Phone Price Prediction System &bull; Powered by AI
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+    <script>
+      // Check for OCR data and auto-fill
+      document.addEventListener('DOMContentLoaded', () => {
+        const ocrDataStr = localStorage.getItem('ocrData');
+        if (ocrDataStr) {
+          try {
+            const ocrData = JSON.parse(ocrDataStr);
+            if (ocrData.brand && ocrData.brand !== 'Not found') {
+              const brandSelect = document.getElementById('brand');
+              // Ensure brand exists in options, else select Other
+              let found = false;
+              for (let i = 0; i < brandSelect.options.length; i++) {
+                if (brandSelect.options[i].value.toLowerCase() === ocrData.brand.toLowerCase()) {
+                  brandSelect.selectedIndex = i;
+                  found = true;
+                  break;
+                }
+              }
+              if (!found) brandSelect.value = 'Other';
+            }
+            if (ocrData.model && ocrData.model !== 'Not found') {
+              document.getElementById('model').value = ocrData.model;
+            }
+            if (ocrData.original_price && ocrData.original_price !== 'Not found') {
+              document.getElementById('original_price').value = ocrData.original_price;
+            }
+            if (ocrData.purchase_year && ocrData.purchase_year !== 'Not found') {
+              document.getElementById('purchase_year').value = ocrData.purchase_year;
+            }
+            
+            // Clear the data so it doesn't auto-fill forever
+            localStorage.removeItem('ocrData');
+            
+            // Optional: Show a small toast/alert to let the user know
+            // alert('Form auto-filled from OCR Invoice!');
+          } catch (e) {
+            console.error("Error parsing OCR data", e);
+          }
+        }
+      });
+
+      // API Configuration
+      const API_URL = '/predict-resale';
+
+      document.getElementById('resalePriceForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const resultDiv = document.getElementById('predictionResult');
+        const priceVal = document.getElementById('priceValue');
+        const confVal = document.getElementById('confidenceValue');
+        const topPreds = document.getElementById('topPredictions');
+
+        const warningsSection = document.getElementById('warningsSection');
+        const warningsList = document.getElementById('warningsList');
+        const submitBtn = document.querySelector('button[type="submit"]');
+        const originalBtnHTML = submitBtn.innerHTML;
+        
+        // Loading state
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin" style="margin-right: 0.5rem;"></i> Predicting...';
+        priceVal.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+        topPreds.innerHTML = '';
+        resultDiv.style.display = 'block';
+        
+        // Collect form data matching ALL 27 features from dataset
+        const formData = {
+          brand: document.getElementById('brand').value,
+          model: document.getElementById('model').value,
+          release_year: parseInt(document.getElementById('release_year').value),
+          ram_gb: parseInt(document.getElementById('ram_gb').value),
+          storage_gb: parseInt(document.getElementById('storage_gb').value),
+          screen_size_inches: parseFloat(document.getElementById('screen_size_inches').value),
+          battery_capacity: parseInt(document.getElementById('battery_capacity').value),
+          processor_score: parseInt(document.getElementById('processor_score').value),
+          camera_score: parseInt(document.getElementById('camera_score').value),
+          os_type: document.getElementById('os_type').value,
+          chipset: document.getElementById('chipset') ? document.getElementById('chipset').value : '',
+          has_5g: parseInt(document.getElementById('has_5g').value),
+          original_price: parseFloat(document.getElementById('original_price').value),
+          purchase_year: parseInt(document.getElementById('purchase_year').value),
+          age_months: parseInt(document.getElementById('age_months').value),
+          usage_hours_per_day: 4.0,        // default: average usage
+          condition: document.getElementById('condition').value,
+          battery_health: parseFloat(document.getElementById('battery_health').value),
+          screen_cracked: parseInt(document.getElementById('screen_cracked').value),
+          body_damage: parseInt(document.getElementById('body_damage').value),
+          repair_history: parseInt(document.getElementById('repair_history').value),
+          water_damage: parseInt(document.getElementById('water_damage').value),
+          city_tier: 1,                    // default: Tier 1
+          seller_type: 'Individual',       // default: Individual
+          warranty_remaining_months: parseInt(document.getElementById('warranty_remaining_months').value),
+          box_available: parseInt(document.getElementById('box_available').value),
+          charger_available: parseInt(document.getElementById('charger_available').value),
+          market_demand_score: 7.0
+        };
+
+        try {
+          const response = await fetch(API_URL, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+          });
+          
+          const data = await response.json();
+          
+          if (!response.ok || !data.success) {
+            throw new Error(data.error || `API Request Failed with status ${response.status}`);
+          }
+          
+          // Display predicted price band
+          priceVal.innerHTML = data.price_range;
+          confVal.innerHTML = data.confidence + '%';
+          confVal.style.color = data.confidence > 40 ? "var(--success-color)" : "var(--primary-color)";
+          
+          // Show top 3 predictions with probability bars
+          if (data.top_predictions && data.top_predictions.length > 0) {
+            let html = '<div style="font-weight: 600; margin-bottom: 0.75rem; font-size: 0.9rem;">Top Predictions:</div>';
+            data.top_predictions.forEach((pred, i) => {
+              const barColor = i === 0 ? 'var(--success-color)' : (i === 1 ? 'var(--primary-color)' : 'var(--text-secondary)');
+              html += `
+                <div style="margin-bottom: 0.5rem;">
+                  <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.25rem;">
+                    <span>${pred.name || pred.range}</span>
+                    <span style="font-weight: 600; color: ${barColor};">${pred.probability}%</span>
+                  </div>
+                  <div style="background: rgba(255,255,255,0.1); border-radius: 4px; height: 6px; overflow: hidden;">
+                    <div style="background: ${barColor}; height: 100%; width: ${pred.probability}%; border-radius: 4px; transition: width 0.5s ease;"></div>
+                  </div>
+                </div>`;
+            });
+            topPreds.innerHTML = html;
+          }
+          
+
+          
+          // Show warnings if any
+          if (data.warnings && data.warnings.length > 0) {
+            warningsSection.style.display = 'block';
+            warningsList.innerHTML = data.warnings.map(w => '<div>' + w + '</div>').join('');
+          } else {
+            warningsSection.style.display = 'none';
+          }
+          
+        } catch (error) {
+          console.error("Prediction Error:", error);
+          priceVal.innerHTML = '<span style="color: #EF4444; font-size: 1.25rem;">' + (error.message || 'API Error') + '</span>';
+          topPreds.innerHTML = '';
+          confVal.innerHTML = 'Error';
+          confVal.style.color = "#EF4444";
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalBtnHTML;
+        }
+      });
+    </script>
+  </body>
+</html>
+

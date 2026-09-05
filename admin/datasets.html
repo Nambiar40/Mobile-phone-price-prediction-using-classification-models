@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dataset Management - Price Predict AI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="../src/style.css" />
+    <link rel="stylesheet" href="admin.css" />
+  </head>
+  <body class="admin-layout">
+    <div class="bg-glow-1"></div>
+    <div class="bg-glow-2"></div>
+    
+    <div id="admin-app">
+      <div class="page-header">
+        <div class="page-title">
+          <h1>Dataset Management</h1>
+          <p>Upload, validate, and manage datasets used for AI training.</p>
+        </div>
+        <div class="header-actions">
+          <button class="btn btn-pill btn-primary"><i class="fa-solid fa-cloud-arrow-up"></i> Upload Dataset</button>
+        </div>
+      </div>
+
+      <div class="glass-card" style="margin-bottom: 2rem;">
+        <div class="flex-row items-center justify-between">
+          <div>
+            <h3 style="margin-bottom: 0.5rem;"><i class="fa-solid fa-database text-primary"></i> Active Dataset Overview</h3>
+            <p style="font-size: 0.875rem;">Current master dataset used for live model predictions.</p>
+          </div>
+          <div class="flex gap-4">
+            <div class="text-center">
+              <div style="font-size: 1.5rem; font-weight: 700;">v2.4.1</div>
+              <div style="font-size: 0.75rem; color: var(--text-secondary);">Version</div>
+            </div>
+            <div class="text-center">
+              <div style="font-size: 1.5rem; font-weight: 700; color: var(--success-color);">850K</div>
+              <div style="font-size: 0.75rem; color: var(--text-secondary);">Records</div>
+            </div>
+            <div class="text-center">
+              <div style="font-size: 1.5rem; font-weight: 700;">18</div>
+              <div style="font-size: 0.75rem; color: var(--text-secondary);">Features</div>
+            </div>
+            <div class="text-center">
+              <div style="font-size: 1.5rem; font-weight: 700; color: #10B981;">0.1%</div>
+              <div style="font-size: 0.75rem; color: var(--text-secondary);">Missing Values</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass-card">
+        <div class="flex justify-between items-center" style="margin-bottom: 1.5rem;">
+          <div class="chart-title">Dataset History</div>
+          <div class="search-bar" style="width: 250px; background: rgba(0,0,0,0.2);">
+            <i class="fa-solid fa-search text-secondary"></i>
+            <input type="text" placeholder="Search version..." />
+          </div>
+        </div>
+
+        <div class="table-wrapper">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Version Name</th>
+                <th>Upload Date</th>
+                <th>Records</th>
+                <th>Size</th>
+                <th>Validation</th>
+                <th>Status</th>
+                <th style="text-align: right;">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><i class="fa-solid fa-file-csv text-primary" style="margin-right: 0.5rem;"></i> phone_prices_v2.4.1.csv</td>
+                <td>Jul 15, 2026</td>
+                <td>850,210</td>
+                <td>145 MB</td>
+                <td><span class="status-badge status-completed">Passed</span></td>
+                <td><span class="status-badge" style="background: rgba(124, 58, 237, 0.1); color: var(--primary-color);">Active in Prod</span></td>
+                <td>
+                  <div class="table-actions" style="justify-content: flex-end;">
+                    <button class="action-btn view" title="Preview Data"><i class="fa-solid fa-eye"></i></button>
+                    <button class="action-btn" title="Download"><i class="fa-solid fa-download"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><i class="fa-solid fa-file-csv text-secondary" style="margin-right: 0.5rem;"></i> phone_prices_v2.4.0.csv</td>
+                <td>Jun 01, 2026</td>
+                <td>820,400</td>
+                <td>138 MB</td>
+                <td><span class="status-badge status-completed">Passed</span></td>
+                <td><span class="status-badge" style="background: rgba(255, 255, 255, 0.05); color: var(--text-secondary);">Archived</span></td>
+                <td>
+                  <div class="table-actions" style="justify-content: flex-end;">
+                    <button class="action-btn view"><i class="fa-solid fa-eye"></i></button>
+                    <button class="action-btn"><i class="fa-solid fa-download"></i></button>
+                    <button class="action-btn delete"><i class="fa-solid fa-trash"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><i class="fa-solid fa-file-csv text-secondary" style="margin-right: 0.5rem;"></i> experimental_resale_v3.csv</td>
+                <td>Jul 28, 2026</td>
+                <td>125,000</td>
+                <td>45 MB</td>
+                <td><span class="status-badge" style="background: rgba(239, 68, 68, 0.1); color: #EF4444;">Failed (NaNs found)</span></td>
+                <td><span class="status-badge" style="background: rgba(255, 255, 255, 0.05); color: var(--text-secondary);">Testing</span></td>
+                <td>
+                  <div class="table-actions" style="justify-content: flex-end;">
+                    <button class="action-btn edit" title="Fix Dataset"><i class="fa-solid fa-wrench"></i></button>
+                    <button class="action-btn delete"><i class="fa-solid fa-trash"></i></button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <script src="admin.js"></script>
+    <script src="layout.js"></script>
+  </body>
+</html>

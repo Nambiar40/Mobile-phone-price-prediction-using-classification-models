@@ -1,0 +1,14 @@
+flask
+flask-cors
+scikit-learn
+pandas
+joblib
+requests
+beautifulsoup4
+apscheduler
+streamlit
+supabase
+pytesseract
+opencv-python-headless
+Pillow
+pyzbar

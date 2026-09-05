@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prediction Management - Price Predict AI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="../src/style.css" />
+    <link rel="stylesheet" href="admin.css" />
+  </head>
+  <body class="admin-layout">
+    <div class="bg-glow-1"></div>
+    <div class="bg-glow-2"></div>
+    
+    <div id="admin-app">
+      <div class="page-header">
+        <div class="page-title">
+          <h1>Prediction Management</h1>
+          <p>Review all AI predictions, confidence scores, and details.</p>
+        </div>
+        <div class="header-actions">
+          <button class="btn btn-outline" style="padding: 0.5rem 1rem;"><i class="fa-solid fa-sort"></i> Sort</button>
+          <button class="btn btn-pill btn-blue"><i class="fa-solid fa-download"></i> Export Data</button>
+        </div>
+      </div>
+
+      <div class="glass-card">
+        <div class="flex justify-between items-center" style="margin-bottom: 1.5rem;">
+          <div class="flex gap-4 items-center">
+            <div class="search-bar" style="width: 250px; background: rgba(0,0,0,0.2);">
+              <i class="fa-solid fa-search text-secondary"></i>
+              <input type="text" placeholder="Search by ID or Brand..." />
+            </div>
+            <select class="form-control" style="width: auto; padding: 0.4rem 1rem;">
+              <option value="">All Types</option>
+              <option value="Current">Current Price</option>
+              <option value="Future">Future Price</option>
+              <option value="Resale">Resale Value</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="table-wrapper">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>User</th>
+                <th>Type</th>
+                <th>Brand / Model</th>
+                <th>Specs</th>
+                <th>Predicted Price</th>
+                <th>Confidence</th>
+                <th>Date</th>
+                <th style="text-align: right;">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>#PRD-9823</td>
+                <td>Alex J.</td>
+                <td><span class="status-badge" style="background: rgba(124, 58, 237, 0.1); color: var(--primary-color);">Current</span></td>
+                <td><span style="font-weight: 600;">Apple</span> iPhone 14 Pro</td>
+                <td style="font-size: 0.75rem; color: var(--text-secondary);">6GB RAM, 256GB</td>
+                <td style="font-weight: 600; color: var(--success-color);">$899.00</td>
+                <td>98.2%</td>
+                <td>Jul 31, 2026</td>
+                <td>
+                  <div class="table-actions" style="justify-content: flex-end;">
+                    <button class="action-btn view" title="View Details"><i class="fa-solid fa-eye"></i></button>
+                    <button class="action-btn" title="Download PDF"><i class="fa-solid fa-file-pdf"></i></button>
+                    <button class="action-btn delete" onclick="window.deleteItem('#PRD-9823')"><i class="fa-solid fa-trash"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>#PRD-9822</td>
+                <td>Sarah S.</td>
+                <td><span class="status-badge" style="background: rgba(59, 130, 246, 0.1); color: var(--secondary-color);">Future</span></td>
+                <td><span style="font-weight: 600;">Samsung</span> Galaxy S23 Ultra</td>
+                <td style="font-size: 0.75rem; color: var(--text-secondary);">12GB RAM, 512GB</td>
+                <td style="font-weight: 600; color: var(--success-color);">$650.00</td>
+                <td>92.5%</td>
+                <td>Jul 31, 2026</td>
+                <td>
+                  <div class="table-actions" style="justify-content: flex-end;">
+                    <button class="action-btn view"><i class="fa-solid fa-eye"></i></button>
+                    <button class="action-btn"><i class="fa-solid fa-file-pdf"></i></button>
+                    <button class="action-btn delete"><i class="fa-solid fa-trash"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>#PRD-9821</td>
+                <td>Raj P.</td>
+                <td><span class="status-badge" style="background: rgba(16, 185, 129, 0.1); color: var(--success-color);">Resale</span></td>
+                <td><span style="font-weight: 600;">OnePlus</span> 11 5G</td>
+                <td style="font-size: 0.75rem; color: var(--text-secondary);">8GB RAM, 128GB</td>
+                <td style="font-weight: 600; color: var(--success-color);">$320.50</td>
+                <td>88.9%</td>
+                <td>Jul 30, 2026</td>
+                <td>
+                  <div class="table-actions" style="justify-content: flex-end;">
+                    <button class="action-btn view"><i class="fa-solid fa-eye"></i></button>
+                    <button class="action-btn"><i class="fa-solid fa-file-pdf"></i></button>
+                    <button class="action-btn delete"><i class="fa-solid fa-trash"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>#PRD-9820</td>
+                <td>Guest</td>
+                <td><span class="status-badge" style="background: rgba(249, 115, 22, 0.1); color: #F97316;">OCR</span></td>
+                <td><span style="font-weight: 600;">Xiaomi</span> 13 Pro</td>
+                <td style="font-size: 0.75rem; color: var(--text-secondary);">12GB RAM, 256GB</td>
+                <td style="font-weight: 600; color: var(--success-color);">$780.00</td>
+                <td>95.1%</td>
+                <td>Jul 30, 2026</td>
+                <td>
+                  <div class="table-actions" style="justify-content: flex-end;">
+                    <button class="action-btn view"><i class="fa-solid fa-eye"></i></button>
+                    <button class="action-btn"><i class="fa-solid fa-file-pdf"></i></button>
+                    <button class="action-btn delete"><i class="fa-solid fa-trash"></i></button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        
+        <div class="pagination">
+          <div class="page-info">Showing 1 to 4 of 142,384 predictions</div>
+          <div class="page-controls">
+            <button class="page-btn" disabled><i class="fa-solid fa-chevron-left"></i></button>
+            <button class="page-btn active">1</button>
+            <button class="page-btn">2</button>
+            <button class="page-btn">...</button>
+            <button class="page-btn"><i class="fa-solid fa-chevron-right"></i></button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <script src="admin.js"></script>
+    <script src="layout.js"></script>
+  </body>
+</html>

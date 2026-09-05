@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notifications - Price Predict AI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="../src/style.css" />
+    <link rel="stylesheet" href="admin.css" />
+    <style>
+      .notification-list {
+        display: flex;
+        flex-direction: column;
+      }
+      .notification-item {
+        display: flex;
+        gap: 1.5rem;
+        padding: 1.5rem;
+        border-bottom: 1px solid var(--border-color);
+        transition: background 0.2s ease;
+      }
+      .notification-item:last-child { border-bottom: none; }
+      .notification-item:hover { background: rgba(255, 255, 255, 0.02); }
+      .notification-item.unread { background: rgba(124, 58, 237, 0.05); }
+      
+      .noti-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+        flex-shrink: 0;
+      }
+      .noti-content { flex: 1; }
+      .noti-title { font-weight: 600; font-size: 1rem; margin-bottom: 0.25rem; color: var(--text-main); }
+      .noti-desc { font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.5rem; }
+      .noti-time { font-size: 0.75rem; color: var(--text-secondary); }
+    </style>
+  </head>
+  <body class="admin-layout">
+    <div class="bg-glow-1"></div>
+    <div class="bg-glow-2"></div>
+    
+    <div id="admin-app">
+      <div class="page-header">
+        <div class="page-title">
+          <h1>Notifications</h1>
+          <p>System alerts, user activities, and warnings.</p>
+        </div>
+        <div class="header-actions">
+          <button class="btn btn-outline" style="padding: 0.5rem 1rem;"><i class="fa-solid fa-check-double"></i> Mark all read</button>
+        </div>
+      </div>
+
+      <div class="glass-card" style="padding: 0;">
+        <div class="notification-list">
+          
+          <div class="notification-item unread">
+            <div class="noti-icon icon-purple"><i class="fa-solid fa-brain"></i></div>
+            <div class="noti-content">
+              <div class="noti-title">Model Retraining Completed</div>
+              <div class="noti-desc">The Current Price Model (v4.2) has finished retraining successfully. Accuracy improved by 0.5%.</div>
+              <div class="noti-time">2 mins ago</div>
+            </div>
+            <button class="action-btn delete" title="Dismiss"><i class="fa-solid fa-times"></i></button>
+          </div>
+
+          <div class="notification-item unread">
+            <div class="noti-icon" style="background: rgba(245, 158, 11, 0.1); color: #F59E0B;"><i class="fa-solid fa-hard-drive"></i></div>
+            <div class="noti-content">
+              <div class="noti-title">Storage Warning</div>
+              <div class="noti-desc">Server storage capacity has exceeded 78%. Consider archiving old OCR images.</div>
+              <div class="noti-time">1 hour ago</div>
+            </div>
+            <button class="action-btn delete" title="Dismiss"><i class="fa-solid fa-times"></i></button>
+          </div>
+
+          <div class="notification-item unread">
+            <div class="noti-icon icon-blue"><i class="fa-solid fa-user-plus"></i></div>
+            <div class="noti-content">
+              <div class="noti-title">New User Registration Spike</div>
+              <div class="noti-desc">Over 500 new users registered in the last hour from Region: India.</div>
+              <div class="noti-time">3 hours ago</div>
+            </div>
+            <button class="action-btn delete" title="Dismiss"><i class="fa-solid fa-times"></i></button>
+          </div>
+
+          <div class="notification-item">
+            <div class="noti-icon" style="background: rgba(239, 68, 68, 0.1); color: #EF4444;"><i class="fa-solid fa-triangle-exclamation"></i></div>
+            <div class="noti-content">
+              <div class="noti-title">OCR API Failure</div>
+              <div class="noti-desc">The Cloud Vision API failed to respond 5 times consecutively. System fell back to secondary OCR engine.</div>
+              <div class="noti-time">Yesterday</div>
+            </div>
+            <button class="action-btn delete" title="Dismiss"><i class="fa-solid fa-times"></i></button>
+          </div>
+
+          <div class="notification-item">
+            <div class="noti-icon icon-green"><i class="fa-solid fa-database"></i></div>
+            <div class="noti-content">
+              <div class="noti-title">Dataset v2.4.1 Uploaded</div>
+              <div class="noti-desc">Admin User uploaded a new dataset containing 850K records. Validation passed.</div>
+              <div class="noti-time">2 days ago</div>
+            </div>
+            <button class="action-btn delete" title="Dismiss"><i class="fa-solid fa-times"></i></button>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <script src="admin.js"></script>
+    <script src="layout.js"></script>
+  </body>
+</html>

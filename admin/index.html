@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard - Price Predict AI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="../src/style.css" />
+    <link rel="stylesheet" href="admin.css" />
+  </head>
+  <body class="admin-layout">
+    <div class="bg-glow-1"></div>
+    <div class="bg-glow-2"></div>
+    
+    <div id="admin-app">
+      <div class="page-header">
+        <div class="page-title">
+          <h1>Dashboard Overview</h1>
+          <p>Welcome back, Admin. Here's what's happening today.</p>
+        </div>
+        <div class="header-actions">
+          <button class="btn btn-pill btn-primary"><i class="fa-solid fa-download"></i> Export Report</button>
+        </div>
+      </div>
+
+      <!-- Top Statistics -->
+      <div class="stats-grid">
+        <div class="glass-card stat-card">
+          <div class="stat-top">
+            <div class="stat-icon icon-purple"><i class="fa-solid fa-users"></i></div>
+            <div class="stat-trend trend-up"><i class="fa-solid fa-arrow-trend-up"></i> 12.5%</div>
+          </div>
+          <div class="stat-value">24,592</div>
+          <div class="stat-label">Total Users</div>
+        </div>
+        <div class="glass-card stat-card">
+          <div class="stat-top">
+            <div class="stat-icon icon-blue"><i class="fa-solid fa-bolt"></i></div>
+            <div class="stat-trend trend-up"><i class="fa-solid fa-arrow-trend-up"></i> 8.2%</div>
+          </div>
+          <div class="stat-value">142,384</div>
+          <div class="stat-label">Total Predictions</div>
+        </div>
+        <div class="glass-card stat-card">
+          <div class="stat-top">
+            <div class="stat-icon icon-green"><i class="fa-solid fa-bullseye"></i></div>
+            <div class="stat-trend trend-up"><i class="fa-solid fa-arrow-trend-up"></i> 2.1%</div>
+          </div>
+          <div class="stat-value">96.8%</div>
+          <div class="stat-label">Average Accuracy</div>
+        </div>
+        <div class="glass-card stat-card">
+          <div class="stat-top">
+            <div class="stat-icon icon-orange"><i class="fa-solid fa-camera"></i></div>
+            <div class="stat-trend trend-down"><i class="fa-solid fa-arrow-trend-down"></i> 1.4%</div>
+          </div>
+          <div class="stat-value">18,290</div>
+          <div class="stat-label">OCR Predictions</div>
+        </div>
+      </div>
+
+      <!-- Second Section: Charts -->
+      <div class="charts-grid">
+        <div class="glass-card chart-card">
+          <div class="chart-header">
+            <div class="chart-title">Prediction Activity (Last 30 Days)</div>
+            <div class="chart-actions">
+              <select><option>Last 30 Days</option><option>This Year</option></select>
+            </div>
+          </div>
+          <div class="chart-container">
+            <canvas id="activityChart"></canvas>
+          </div>
+        </div>
+        <div class="glass-card chart-card">
+          <div class="chart-header">
+            <div class="chart-title">Prediction Distribution</div>
+            <div class="chart-actions"><i class="fa-solid fa-ellipsis-vertical text-secondary"></i></div>
+          </div>
+          <div class="chart-container">
+            <canvas id="distChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Third Section: Brands & Activity -->
+      <div class="charts-grid" style="grid-template-columns: 1fr 1fr;">
+        <div class="glass-card chart-card">
+          <div class="chart-header">
+            <div class="chart-title">Top Phone Brands</div>
+          </div>
+          <div class="chart-container small">
+            <canvas id="brandsChart"></canvas>
+          </div>
+        </div>
+
+        <div class="glass-card chart-card" style="overflow-y: auto; max-height: 400px;">
+          <div class="chart-header">
+            <div class="chart-title">System Health & Status</div>
+          </div>
+          <div class="flex-col gap-4">
+            <div class="flex justify-between items-center pb-2" style="border-bottom: 1px solid var(--border-color);">
+              <div>
+                <div style="font-weight: 600; color: var(--text-main);">API Server</div>
+                <div style="font-size: 0.75rem;">Uptime: 99.9%</div>
+              </div>
+              <span class="status-badge status-completed">Operational</span>
+            </div>
+            <div class="flex justify-between items-center pb-2" style="border-bottom: 1px solid var(--border-color);">
+              <div>
+                <div style="font-weight: 600; color: var(--text-main);">Database</div>
+                <div style="font-size: 0.75rem;">Latency: 12ms</div>
+              </div>
+              <span class="status-badge status-completed">Operational</span>
+            </div>
+            <div class="flex justify-between items-center pb-2" style="border-bottom: 1px solid var(--border-color);">
+              <div>
+                <div style="font-weight: 600; color: var(--text-main);">OCR Engine</div>
+                <div style="font-size: 0.75rem;">Load: 45%</div>
+              </div>
+              <span class="status-badge status-completed">Operational</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <div>
+                <div style="font-weight: 600; color: var(--text-main);">Storage</div>
+                <div style="font-size: 0.75rem;">Usage: 78% (1.2TB / 2TB)</div>
+              </div>
+              <span class="status-badge" style="background: rgba(245, 158, 11, 0.1); color: var(--warning-color, #F59E0B);">Warning</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <script src="charts.js"></script>
+    <script src="admin.js"></script>
+    <script src="layout.js"></script>
+    <script>
+      document.addEventListener('layoutReady', () => {
+        if(window.renderDashboardCharts) {
+          window.renderDashboardCharts();
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <title>Price Tracker - Price Predict AI</title>
+    <link rel="stylesheet" href="/src/style.css" />
+    <style>
+      .tracker-form {
+        background: rgba(255, 255, 255, 0.05);
+        padding: 20px;
+        border-radius: 12px;
+        backdrop-filter: blur(10px);
+        margin-bottom: 30px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .tracker-form h3 {
+        margin-top: 0;
+        margin-bottom: 15px;
+        color: var(--text-color, #333);
+      }
+      .form-group {
+        margin-bottom: 15px;
+      }
+      .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+      .form-group input {
+        width: 100%;
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        background: rgba(255, 255, 255, 0.8);
+      }
+      .tracked-items-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+      }
+      .tracked-item-card {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        padding: 15px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+      }
+      .tracked-item-card img {
+        max-width: 100%;
+        height: 150px;
+        object-fit: contain;
+        margin-bottom: 15px;
+        background: white;
+        border-radius: 8px;
+        padding: 5px;
+      }
+      .tracked-item-card h4 {
+        margin: 0 0 10px 0;
+        font-size: 1.1em;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+      }
+      .price-info {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 15px;
+        font-weight: bold;
+      }
+      .current-price {
+        color: var(--success-color, #22c55e);
+        font-size: 1.2em;
+      }
+      .target-price {
+        color: #f59e0b;
+      }
+      .delete-btn {
+        background: #ef4444;
+        color: white;
+        border: none;
+        padding: 8px;
+        border-radius: 6px;
+        cursor: pointer;
+        width: 100%;
+      }
+      .delete-btn:hover {
+        background: #dc2626;
+      }
+      /* Notifications Panel */
+      .notifications-panel {
+        background: rgba(59, 130, 246, 0.1);
+        border-left: 4px solid #3b82f6;
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 4px;
+        display: none;
+      }
+      .notification-item {
+        padding: 10px;
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+      }
+      .notification-item:last-child {
+        border-bottom: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="dashboard-layout">
+      <!-- LEFT SIDEBAR -->
+      <aside class="sidebar">
+        <div class="sidebar-brand">
+          <div class="sidebar-logo">
+            <i class="fa-solid fa-robot"></i>
+          </div>
+          <div class="sidebar-title">Price Predict AI</div>
+        </div>
+        <ul class="sidebar-menu">
+          <li class="menu-item"><a href="/dashboard.html" class="menu-link"><i class="fa-solid fa-house"></i> Dashboard</a></li>
+          <li class="menu-item"><a href="/ocr-scanner.html" class="menu-link"><i class="fa-solid fa-camera"></i> OCR Prediction</a></li>
+          <li class="menu-item"><a href="/current-price.html" class="menu-link"><i class="fa-solid fa-chart-simple"></i> Current Price Range</a></li>
+          <li class="menu-item"><a href="/price-tracker.html" class="menu-link active"><i class="fa-solid fa-arrow-trend-up"></i> Price Tracker</a></li>
+          <li class="menu-item"><a href="/resale-price.html" class="menu-link"><i class="fa-solid fa-sack-dollar"></i> Resale Price Range</a></li>
+          <li class="menu-item"><a href="/history.html" class="menu-link"><i class="fa-solid fa-folder-open"></i> History</a></li>
+        </ul>
+        <div class="sidebar-footer">
+          <ul class="sidebar-menu">
+
+            <li class="menu-item"><a href="/index.html" class="menu-link"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a></li>
+          </ul>
+        </div>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <div class="main-content">
+        <!-- TOP NAVBAR -->
+        <header class="top-navbar">
+          <div class="search-bar">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" placeholder="Search predictions..." />
+          </div>
+          <div class="nav-actions">
+            <i class="fa-solid fa-moon nav-icon" id="themeToggle" title="Toggle Theme"></i>
+            <i class="fa-solid fa-bell nav-icon" title="Notifications" id="bellIcon" style="position: relative;">
+              <span id="notifBadge" style="display:none; position:absolute; top:-5px; right:-5px; background:red; color:white; border-radius:50%; width:15px; height:15px; font-size:10px; text-align:center; line-height:15px;">0</span>
+            </i>
+            <div class="user-profile">
+              <div class="user-avatar">AD</div>
+              <div class="user-info">
+                <span class="user-name">Admin User</span>
+                <span class="user-role">Premium Plan</span>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- DASHBOARD BODY -->
+        <div class="dashboard-body">
+          <div class="dashboard-header">
+            <h1>Price Tracker</h1>
+            <p>Track Amazon product prices and get notified when they drop.</p>
+          </div>
+
+          <!-- Notifications Panel -->
+          <div class="notifications-panel" id="notificationsPanel">
+            <h3><i class="fa-solid fa-bell"></i> Recent Notifications</h3>
+            <div id="notificationsList"></div>
+            <button class="btn btn-sm" id="markReadBtn" style="margin-top:10px;">Mark All as Read</button>
+          </div>
+
+          <!-- Add Tracker Form -->
+          <div class="tracker-form glass-card">
+            <h3>Add New Product to Track</h3>
+            <form id="trackerForm">
+              <div class="form-group">
+                <label for="productUrl">Amazon Product URL *</label>
+                <input type="url" id="productUrl" required placeholder="https://www.amazon.in/dp/B0B..." />
+              </div>
+              <div class="form-group">
+                <label for="targetPrice">Target Price (₹) - Optional</label>
+                <input type="number" id="targetPrice" placeholder="e.g., 50000" />
+              </div>
+              <button type="submit" class="btn btn-primary" id="trackBtn">
+                <i class="fa-solid fa-plus"></i> Start Tracking
+              </button>
+            </form>
+            <div id="trackerMessage" style="margin-top: 15px; font-weight: bold;"></div>
+          </div>
+
+          <!-- Tracked Items -->
+          <h3>Currently Tracking</h3>
+          <div class="tracked-items-grid" id="trackedItemsGrid">
+            <!-- Items will be injected here via JS -->
+            <p>Loading tracked items...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+    <script>
+      const API_BASE = 'http://127.0.0.1:5000/api';
+      
+      // Load Notifications
+      async function loadNotifications() {
+        try {
+          const res = await fetch(`${API_BASE}/notifications`);
+          const data = await res.json();
+          if (data.success && data.notifications.length > 0) {
+            document.getElementById('notifBadge').style.display = 'block';
+            document.getElementById('notifBadge').innerText = data.notifications.length;
+            
+            const panel = document.getElementById('notificationsPanel');
+            const list = document.getElementById('notificationsList');
+            panel.style.display = 'block';
+            
+            list.innerHTML = data.notifications.map(n => `
+              <div class="notification-item" data-id="${n.id}">
+                <strong>${n.type === 'success' ? '🎯' : '🔔'}</strong> ${n.message}
+                <div style="font-size:0.8em; color:gray;">${new Date(n.created_at).toLocaleString()}</div>
+              </div>
+            `).join('');
+            
+            document.getElementById('markReadBtn').onclick = async () => {
+              const ids = data.notifications.map(n => n.id);
+              await fetch(`${API_BASE}/notifications/mark-read`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ids})
+              });
+              panel.style.display = 'none';
+              document.getElementById('notifBadge').style.display = 'none';
+            };
+          }
+        } catch (err) {
+          console.error("Failed to load notifications", err);
+        }
+      }
+
+      // Load Tracked Items
+      async function loadTrackedItems() {
+        const grid = document.getElementById('trackedItemsGrid');
+        try {
+          const res = await fetch(`${API_BASE}/tracked-prices`);
+          const data = await res.json();
+          
+          if (data.success) {
+            if (data.items.length === 0) {
+              grid.innerHTML = '<p>You are not tracking any products yet.</p>';
+              return;
+            }
+            
+            grid.innerHTML = data.items.map(item => `
+              <div class="tracked-item-card">
+                ${item.image_url ? `<img src="${item.image_url}" alt="Product Image">` : ''}
+                <h4><a href="${item.url}" target="_blank" style="color:inherit; text-decoration:none;">${item.name}</a></h4>
+                <div class="price-info">
+                  <span class="current-price">₹${item.current_price || 'N/A'}</span>
+                  <span class="target-price">${item.target_price ? 'Target: ₹' + item.target_price : 'No target'}</span>
+                </div>
+                <div style="font-size:0.8em; margin-bottom:10px; color:gray;">
+                  Last checked: ${item.last_checked ? new Date(item.last_checked).toLocaleString() : 'Never'}
+                </div>
+                <button class="delete-btn" onclick="deleteItem(${item.id})">
+                  <i class="fa-solid fa-trash"></i> Stop Tracking
+                </button>
+              </div>
+            `).join('');
+          }
+        } catch (err) {
+          grid.innerHTML = '<p style="color:red;">Failed to load items. Is the backend running?</p>';
+        }
+      }
+
+      // Delete Item
+      window.deleteItem = async function(id) {
+        if (!confirm('Stop tracking this product?')) return;
+        try {
+          const res = await fetch(`${API_BASE}/delete-tracked-price/${id}`, { method: 'DELETE' });
+          const data = await res.json();
+          if (data.success) {
+            loadTrackedItems();
+          } else {
+            alert('Failed: ' + data.error);
+          }
+        } catch (err) {
+          alert('Error connecting to backend.');
+        }
+      }
+
+      // Add New Item
+      document.getElementById('trackerForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const url = document.getElementById('productUrl').value;
+        const targetPrice = document.getElementById('targetPrice').value;
+        const msgEl = document.getElementById('trackerMessage');
+        const btn = document.getElementById('trackBtn');
+        
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Processing...';
+        msgEl.style.color = 'var(--text-color)';
+        msgEl.innerText = 'Fetching product details from Amazon. This may take a few seconds...';
+        
+        try {
+          const res = await fetch(`${API_BASE}/track-price`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({url, target_price: targetPrice})
+          });
+          const data = await res.json();
+          
+          if (data.success) {
+            msgEl.style.color = 'green';
+            msgEl.innerText = data.message;
+            document.getElementById('trackerForm').reset();
+            loadTrackedItems();
+            loadNotifications();
+          } else {
+            msgEl.style.color = 'red';
+            msgEl.innerText = 'Error: ' + data.error;
+          }
+        } catch (err) {
+          msgEl.style.color = 'red';
+          msgEl.innerText = 'Error connecting to backend API.';
+        } finally {
+          btn.disabled = false;
+          btn.innerHTML = '<i class="fa-solid fa-plus"></i> Start Tracking';
+        }
+      });
+
+      // Initialize
+      document.addEventListener('DOMContentLoaded', () => {
+        loadTrackedItems();
+        loadNotifications();
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reports - Price Predict AI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="../src/style.css" />
+    <link rel="stylesheet" href="admin.css" />
+  </head>
+  <body class="admin-layout">
+    <div class="bg-glow-1"></div>
+    <div class="bg-glow-2"></div>
+    
+    <div id="admin-app">
+      <div class="page-header">
+        <div class="page-title">
+          <h1>Automated Reports</h1>
+          <p>Generate, download, and manage system reports.</p>
+        </div>
+      </div>
+
+      <div class="feature-grid">
+        <div class="glass-card stat-card">
+          <div class="stat-icon icon-blue"><i class="fa-solid fa-calendar-day"></i></div>
+          <h3 style="margin-bottom: 0.5rem;">Daily Report</h3>
+          <p style="font-size: 0.875rem; margin-bottom: 1.5rem;">Summary of today's predictions, new users, and system health.</p>
+          <div class="flex gap-2">
+            <button class="btn btn-primary" style="flex: 1;"><i class="fa-solid fa-file-pdf"></i> PDF</button>
+            <button class="btn btn-outline" style="flex: 1;"><i class="fa-solid fa-file-csv"></i> CSV</button>
+          </div>
+        </div>
+
+        <div class="glass-card stat-card">
+          <div class="stat-icon icon-green"><i class="fa-solid fa-calendar-week"></i></div>
+          <h3 style="margin-bottom: 0.5rem;">Weekly Report</h3>
+          <p style="font-size: 0.875rem; margin-bottom: 1.5rem;">Weekly trends, model accuracy drift, and OCR performance.</p>
+          <div class="flex gap-2">
+            <button class="btn btn-primary" style="flex: 1;"><i class="fa-solid fa-file-pdf"></i> PDF</button>
+            <button class="btn btn-outline" style="flex: 1;"><i class="fa-solid fa-file-csv"></i> CSV</button>
+          </div>
+        </div>
+
+        <div class="glass-card stat-card">
+          <div class="stat-icon icon-purple"><i class="fa-solid fa-calendar-days"></i></div>
+          <h3 style="margin-bottom: 0.5rem;">Monthly Report</h3>
+          <p style="font-size: 0.875rem; margin-bottom: 1.5rem;">Comprehensive monthly business overview and user growth metrics.</p>
+          <div class="flex gap-2">
+            <button class="btn btn-primary" style="flex: 1;"><i class="fa-solid fa-file-pdf"></i> PDF</button>
+            <button class="btn btn-outline" style="flex: 1;"><i class="fa-solid fa-file-excel"></i> Excel</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass-card mt-6">
+        <div class="chart-title" style="margin-bottom: 1.5rem;">Custom Report Generation</div>
+        <form class="grid-2" onsubmit="event.preventDefault(); window.showToast('Generating Report', 'Your custom report is being generated and will download shortly.', 'info');">
+          <div class="form-group">
+            <label>Start Date</label>
+            <input type="date" class="form-control" required />
+          </div>
+          <div class="form-group">
+            <label>End Date</label>
+            <input type="date" class="form-control" required />
+          </div>
+          <div class="form-group" style="grid-column: span 2;">
+            <label>Metrics to Include</label>
+            <div class="flex gap-4 mt-2">
+              <label class="checkbox-group"><input type="checkbox" checked /> <span>User Growth</span></label>
+              <label class="checkbox-group"><input type="checkbox" checked /> <span>Prediction Accuracy</span></label>
+              <label class="checkbox-group"><input type="checkbox" checked /> <span>Server Health</span></label>
+              <label class="checkbox-group"><input type="checkbox" /> <span>OCR Failures</span></label>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary" style="grid-column: span 2; width: max-content;"><i class="fa-solid fa-wand-magic-sparkles"></i> Generate Custom Report</button>
+        </form>
+      </div>
+
+    </div>
+
+    <script src="admin.js"></script>
+    <script src="layout.js"></script>
+  </body>
+</html>

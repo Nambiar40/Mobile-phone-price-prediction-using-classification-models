@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Management - Price Predict AI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="../src/style.css" />
+    <link rel="stylesheet" href="admin.css" />
+  </head>
+  <body class="admin-layout">
+    <div class="bg-glow-1"></div>
+    <div class="bg-glow-2"></div>
+    
+    <div id="admin-app">
+      <div class="page-header">
+        <div class="page-title">
+          <h1>User Management</h1>
+          <p>Manage platform users, roles, and access.</p>
+        </div>
+        <div class="header-actions">
+          <button class="btn btn-outline" style="padding: 0.5rem 1rem;"><i class="fa-solid fa-filter"></i> Filters</button>
+          <button class="btn btn-pill btn-primary"><i class="fa-solid fa-user-plus"></i> Add User</button>
+        </div>
+      </div>
+
+      <div class="glass-card">
+        <div class="flex justify-between items-center" style="margin-bottom: 1.5rem;">
+          <div class="search-bar" style="width: 300px; background: rgba(0,0,0,0.2);">
+            <i class="fa-solid fa-search text-secondary"></i>
+            <input type="text" placeholder="Search users by name or email..." />
+          </div>
+          <div class="flex gap-2">
+            <button class="btn btn-outline" style="padding: 0.4rem 0.8rem; font-size: 0.875rem;"><i class="fa-solid fa-file-csv"></i> CSV</button>
+            <button class="btn btn-outline" style="padding: 0.4rem 0.8rem; font-size: 0.875rem;"><i class="fa-solid fa-file-excel"></i> Excel</button>
+          </div>
+        </div>
+
+        <div class="table-wrapper">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th style="width: 40px;"><input type="checkbox" /></th>
+                <th>User</th>
+                <th>Country</th>
+                <th>Reg. Date</th>
+                <th>Predictions</th>
+                <th>Role</th>
+                <th>Status</th>
+                <th style="text-align: right;">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><input type="checkbox" /></td>
+                <td>
+                  <div class="table-user">
+                    <img src="https://ui-avatars.com/api/?name=Alex+Johnson&background=3B82F6&color=fff" class="table-user-img" />
+                    <div class="table-user-info">
+                      <span class="table-user-name">Alex Johnson</span>
+                      <span class="table-user-email">alex.j@example.com</span>
+                    </div>
+                  </div>
+                </td>
+                <td>🇺🇸 USA</td>
+                <td>Oct 24, 2025</td>
+                <td>145</td>
+                <td>User</td>
+                <td><span class="status-badge status-completed">Active</span></td>
+                <td>
+                  <div class="table-actions" style="justify-content: flex-end;">
+                    <button class="action-btn view" title="View Details"><i class="fa-solid fa-eye"></i></button>
+                    <button class="action-btn edit" title="Edit User"><i class="fa-solid fa-pen"></i></button>
+                    <button class="action-btn delete" title="Suspend User" onclick="window.deleteItem('Alex Johnson')"><i class="fa-solid fa-ban"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" /></td>
+                <td>
+                  <div class="table-user">
+                    <img src="https://ui-avatars.com/api/?name=Sarah+Smith&background=10B981&color=fff" class="table-user-img" />
+                    <div class="table-user-info">
+                      <span class="table-user-name">Sarah Smith</span>
+                      <span class="table-user-email">sarah.smith@example.com</span>
+                    </div>
+                  </div>
+                </td>
+                <td>🇬🇧 UK</td>
+                <td>Nov 12, 2025</td>
+                <td>32</td>
+                <td>Pro User</td>
+                <td><span class="status-badge status-completed">Active</span></td>
+                <td>
+                  <div class="table-actions" style="justify-content: flex-end;">
+                    <button class="action-btn view"><i class="fa-solid fa-eye"></i></button>
+                    <button class="action-btn edit"><i class="fa-solid fa-pen"></i></button>
+                    <button class="action-btn delete" onclick="window.deleteItem('Sarah Smith')"><i class="fa-solid fa-ban"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" /></td>
+                <td>
+                  <div class="table-user">
+                    <img src="https://ui-avatars.com/api/?name=Raj+Patel&background=F59E0B&color=fff" class="table-user-img" />
+                    <div class="table-user-info">
+                      <span class="table-user-name">Raj Patel</span>
+                      <span class="table-user-email">raj.p@example.com</span>
+                    </div>
+                  </div>
+                </td>
+                <td>🇮🇳 India</td>
+                <td>Jan 05, 2026</td>
+                <td>89</td>
+                <td>User</td>
+                <td><span class="status-badge" style="background: rgba(239, 68, 68, 0.1); color: #EF4444;">Suspended</span></td>
+                <td>
+                  <div class="table-actions" style="justify-content: flex-end;">
+                    <button class="action-btn view"><i class="fa-solid fa-eye"></i></button>
+                    <button class="action-btn edit"><i class="fa-solid fa-pen"></i></button>
+                    <button class="action-btn delete" title="Delete User"><i class="fa-solid fa-trash"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" /></td>
+                <td>
+                  <div class="table-user">
+                    <img src="https://ui-avatars.com/api/?name=Admin+User&background=7C3AED&color=fff" class="table-user-img" />
+                    <div class="table-user-info">
+                      <span class="table-user-name">Admin User</span>
+                      <span class="table-user-email">admin@predict.ai</span>
+                    </div>
+                  </div>
+                </td>
+                <td>🇨🇦 Canada</td>
+                <td>Sep 01, 2025</td>
+                <td>1,024</td>
+                <td>Admin</td>
+                <td><span class="status-badge status-completed">Active</span></td>
+                <td>
+                  <div class="table-actions" style="justify-content: flex-end;">
+                    <button class="action-btn view"><i class="fa-solid fa-eye"></i></button>
+                    <button class="action-btn edit"><i class="fa-solid fa-pen"></i></button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="pagination">
+          <div class="page-info">Showing 1 to 4 of 24,592 entries</div>
+          <div class="page-controls">
+            <button class="page-btn" disabled><i class="fa-solid fa-chevron-left"></i></button>
+            <button class="page-btn active">1</button>
+            <button class="page-btn">2</button>
+            <button class="page-btn">3</button>
+            <button class="page-btn">...</button>
+            <button class="page-btn">1230</button>
+            <button class="page-btn"><i class="fa-solid fa-chevron-right"></i></button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <script src="admin.js"></script>
+    <script src="layout.js"></script>
+  </body>
+</html>
