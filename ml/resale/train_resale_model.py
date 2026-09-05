@@ -27,8 +27,8 @@ print("\n[1/6] Loading dataset...")
 df = pd.read_csv(DATA_PATH)
 print(f"  Full dataset: {len(df):,} rows x {df.shape[1]} columns")
 
-# Use 600K rows
-SAMPLE_SIZE = 600_000
+# Use 200K rows for a smaller model
+SAMPLE_SIZE = 200_000
 if len(df) > SAMPLE_SIZE:
     df = df.sample(n=SAMPLE_SIZE, random_state=42).reset_index(drop=True)
     print(f"  Sampled down to: {len(df):,} rows")
@@ -118,8 +118,8 @@ print(f"  Train: {len(X_train):,}  |  Test: {len(X_test):,}")
 
 start = time.time()
 model = RandomForestClassifier(
-    n_estimators=500,
-    max_depth=None,         # let trees grow fully
+    n_estimators=50,
+    max_depth=15,
     min_samples_split=2,
     min_samples_leaf=1,
     max_features='sqrt',

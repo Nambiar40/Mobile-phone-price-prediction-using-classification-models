@@ -26,8 +26,9 @@ COPY --chown=user . $HOME/app
 # Install Python requirements
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Expose port 7860 (default for Hugging Face Spaces)
-EXPOSE 7860
+# Expose a default port (Render overrides this with $PORT)
+ENV PORT=10000
+EXPOSE $PORT
 
-# Run the Flask app using Gunicorn
-CMD ["gunicorn", "-b", "0.0.0.0:7860", "-w", "4", "app:app"]
+# Run the Flask app using Gunicorn with 1 worker to stay within Render's 512MB RAM limit
+CMD gunicorn -b 0.0.0.0:$PORT -w 1 app:app
