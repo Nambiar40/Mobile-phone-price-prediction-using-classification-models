@@ -109,7 +109,7 @@ def get_search_history(limit=50):
             rows = c.fetchall()
             return [{'id': r[0], 'type': r[1], 'brand': r[2], 'model_name': r[3], 'price': r[4], 'date': r[5]} for r in rows]
 
-def add_tracked_item(url, title, target_price, price, img_url):
+def add_tracked_item(url, title, target_price, price, img_url, platform="Amazon"):
     if USE_SUPABASE:
         supabase = get_supabase_client()
         try:
@@ -120,7 +120,7 @@ def add_tracked_item(url, title, target_price, price, img_url):
                 
             supabase.table('price_tracker').insert({
                 "url": url,
-                "platform": "Amazon",
+                "platform": platform,
                 "product_name": title,
                 "target_price": target_price,
                 "current_price": price,
@@ -129,7 +129,7 @@ def add_tracked_item(url, title, target_price, price, img_url):
             }).execute()
             
             insert_notification(f"Started tracking {title[:30]}... at ₹{price}", "info")
-            insert_search_history("Price Tracker", "Amazon", title[:50], f"Rs.{price}" if price else "N/A")
+            insert_search_history("Price Tracker", platform, title[:50], f"Rs.{price}" if price else "N/A")
             return True, "Product added to tracker!"
         except Exception as e:
             return False, str(e)
@@ -140,10 +140,10 @@ def add_tracked_item(url, title, target_price, price, img_url):
                 c.execute('''
                     INSERT INTO price_tracker (url, platform, product_name, target_price, current_price, image_url, last_checked)
                     VALUES (?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
-                ''', (url, 'Amazon', title, target_price, price, img_url))
+                ''', (url, platform, title, target_price, price, img_url))
                 conn.commit()
                 insert_notification(f"Started tracking {title[:30]}... at ₹{price}", "info")
-                insert_search_history("Price Tracker", "Amazon", title[:50], f"Rs.{price}" if price else "N/A")
+                insert_search_history("Price Tracker", platform, title[:50], f"Rs.{price}" if price else "N/A")
                 return True, "Product added to tracker!"
         except sqlite3.IntegrityError:
             return False, "This URL is already being tracked."
