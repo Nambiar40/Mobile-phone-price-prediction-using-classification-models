@@ -865,52 +865,42 @@ def scrape_amazon_price(url):
         return None, None, None
 
 def scrape_flipkart_price(url):
-    """Scrapes Flipkart for product name, price, and image using Playwright."""
+    """Scrapes Flipkart for product name, price, and image."""
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Accept-Language': 'en-US, en;q=0.5',
+    }
     try:
-        from playwright.sync_api import sync_playwright
-    except ImportError:
-        print("Playwright is not installed. Please run 'pip install playwright' and 'playwright install'.")
-        return None, None, None
-
-    try:
-        with sync_playwright() as p:
-            # Launch chromium in headless mode
-            browser = p.chromium.launch(headless=True)
-            context = browser.new_context(
-                user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
-            )
-            page = context.new_page()
+        response = requests.get(url, headers=headers, timeout=10)
+        if response.status_code != 200:
+            print(f"Failed to fetch {url} (Status: {response.status_code})")
+            return None, None, None
             
-            # Go to the URL and wait for basic content to load
-            page.goto(url, wait_until='domcontentloaded', timeout=15000)
-            
-            # Extract title
-            title = None
-            title_loc = page.locator('.VU-Tz5, .B_NuCI').first
-            if title_loc.count() > 0:
-                title = title_loc.inner_text().strip()
+        soup = BeautifulSoup(response.content, 'html.parser')
+        
+        # Flipkart typically uses span with class B_NuCI or VU-Tz5 for title
+        title_tag = soup.find('span', {'class': 'B_NuCI'}) or soup.find('span', {'class': 'VU-Tz5'})
+        title = title_tag.get_text(strip=True) if title_tag else "Unknown Flipkart Product"
+        
+        # Price is usually in a div with class _30jeq3 _16Jk6d or Nx9bqj CxhGGd
+        price_tag = soup.find('div', {'class': '_30jeq3 _16Jk6d'}) or soup.find('div', {'class': 'Nx9bqj CxhGGd'})
+        
+        price = None
+        if price_tag:
+            price_str = price_tag.get_text(strip=True).replace(',', '').replace('₹', '').replace('.', '')
+            try:
+                price = float(price_str)
+            except ValueError:
+                pass
                 
-            # Extract price
-            price = None
-            price_loc = page.locator('._30jeq3._16Jk6d, .Nx9bqj.CxhGGd').first
-            if price_loc.count() > 0:
-                price_str = price_loc.inner_text().replace(',', '').replace('₹', '').replace('.', '').strip()
-                try:
-                    price = float(price_str)
-                except ValueError:
-                    pass
-                    
-            # Extract image
-            img_url = ""
-            img_loc = page.locator('img._396cs4, img.DByuf4.IEMZgY, img.v2Vcx1').first
-            if img_loc.count() > 0:
-                img_url = img_loc.get_attribute('src') or ""
-                
-            browser.close()
-            return title, price, img_url
-            
+        # Image is typically an img tag with specific classes
+        img_tag = soup.find('img', {'class': '_396cs4 _2amPTt _3qGmMb'}) or soup.find('img', {'class': 'DByuf4 IEMZgY'}) or soup.find('img', {'class': 'v2Vcx1'})
+        img_url = img_tag['src'] if img_tag and 'src' in img_tag.attrs else ""
+        
+        return title, price, img_url
+        
     except Exception as e:
-        print(f"Flipkart scraping error with Playwright: {str(e)}")
+        print(f"Flipkart scraping error: {str(e)}")
         return None, None, None
 
 def background_price_check():
@@ -954,29 +944,21 @@ def add_tracked_item():
     target_price_str = data.get('target_price', '')
     
     url_lower = url.lower()
-    is_amazon = 'amazon' in url_lower or 'amzn.in' in url_lower or 'amzn.to' in url_lower
-    is_flipkart = 'flipkart.com' in url_lower
-    
-    if not is_amazon and not is_flipkart:
-        return jsonify({'success': False, 'error': 'Currently, only Amazon and Flipkart URLs are supported.'}), 400
+    if 'amazon' not in url_lower and 'amzn.in' not in url_lower and 'amzn.to' not in url_lower:
+        return jsonify({'success': False, 'error': 'Currently, only Amazon URLs are supported.'}), 400
         
     try:
         target_price = float(target_price_str) if target_price_str else None
     except ValueError:
         return jsonify({'success': False, 'error': 'Invalid target price format.'}), 400
         
-    if is_flipkart:
-        platform = "Flipkart"
-        title, price, img_url = scrape_flipkart_price(url)
-    else:
-        platform = "Amazon"
-        title, price, img_url = scrape_amazon_price(url)
+    title, price, img_url = scrape_amazon_price(url)
     
     if not title or price is None:
-        return jsonify({'success': False, 'error': f'Failed to fetch product details from {platform}. The URL might be invalid or the platform blocked the request.'}), 400
+        return jsonify({'success': False, 'error': 'Failed to fetch product details from Amazon. The URL might be invalid or the platform blocked the request.'}), 400
         
     try:
-        success, msg = db_add_tracked_item(url, title, target_price, price, img_url, platform)
+        success, msg = db_add_tracked_item(url, title, target_price, price, img_url)
         if success:
             return jsonify({'success': True, 'message': msg, 'product': {'name': title, 'price': price}})
         else:
