@@ -13,3 +13,4 @@ opencv-python-headless
 Pillow
 pyzbar
 xgboost
+playwright
