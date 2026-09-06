@@ -109,7 +109,9 @@ document.addEventListener('DOMContentLoaded', () => {
         let aiResponse = "I'm a virtual assistant for the Price Predict AI. You can ask me about how our machine learning models work, phone depreciation, specific brands like Apple or Samsung, or how to use the dashboard!";
         
         // Advanced mock intelligence
-        if (lowerText.includes('how') && (lowerText.includes('model') || lowerText.includes('work') || lowerText.includes('predict'))) {
+        if (lowerText.includes('price of') || lowerText.includes('how much') || lowerText.includes('current price') || lowerText.includes('resale price') || lowerText.includes('cost of') || lowerText.includes('value of')) {
+          aiResponse = "To get the most accurate price estimate, please use our dedicated tools! Head over to the 'Resale Price' tab to predict a phone's second-hand value, or use the 'Price Tracker' tab to check current market prices.";
+        } else if (lowerText.includes('how') && (lowerText.includes('model') || lowerText.includes('work') || lowerText.includes('predict'))) {
           aiResponse = "Our system uses two powerful machine learning models. For Resale Price, we use a Random Forest Classifier trained on 1 million records to group your phone into a value tier, then apply custom depreciation logic. For Current Price, we use a similar architecture to analyze specs!";
         } else if (lowerText.includes('iphone') || lowerText.includes('apple')) {
           aiResponse = "Apple iPhones generally hold their resale value much better than Android counterparts, depreciating at roughly 2-3% per month in the first year. We validate Apple inputs strictly to ensure they use iOS and Apple Silicon (A-series chips).";
